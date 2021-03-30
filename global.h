@@ -21,10 +21,14 @@ extern const int PARTICLE_AMT;
 extern const int PARTICLE_MIN_ANGLE_OFFSET;
 extern const int PARTICLE_MAX_ANGLE_OFFSET;
 
+extern const int ASTEROID_SEGMENTS;
+extern const int ASTEROID_MAX_VARIATIONS;
 extern const int ASTEROID_MIN_RADIUS;
 extern const int ASTEROID_MAX_RADIUS;
 extern const float ASTEROID_MIN_SPEED;
 extern const float ASTEROID_MAX_SPEED;
+extern const float ASTEROID_MIN_ROT_SPEED;
+extern const float ASTEROID_MAX_ROT_SPEED;
 extern const float WAVE_COOLDOWN;
 
 // 'X' units to the left from the center, 'X' units to the right from the center

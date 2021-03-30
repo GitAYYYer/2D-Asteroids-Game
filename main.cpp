@@ -67,7 +67,7 @@ void idle() {
     calcShipMovement(&ship, deltaTime);
     calcAstMovements(waveMananger.getAsteroids(), deltaTime);
     calcPartMovements(particleManager.getParticles(), deltaTime);
-    checkCollisions(&ship, waveMananger.getAsteroids());
+    // checkCollisions(&ship, waveMananger.getAsteroids());
     particleManager.createParticles();
 
     previousTime = currentTime;
