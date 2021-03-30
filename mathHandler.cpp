@@ -42,6 +42,13 @@ void calcAstMovements(std::vector<Asteroid*>& asteroids, float deltaTime) {
     checkAstDeletion(asteroids);
 }
 
+void calcBulletMovements(std::vector<Bullet*>& bullets, float deltaTime) {
+    for (int i = 0; i < bullets.size(); i++) {
+        bullets[i]->setX(bullets[i]->getX() - (sinD(bullets[i]->getAngle()) * deltaTime * BULLET_SPEED));
+        bullets[i]->setY(bullets[i]->getY() + (cosD(bullets[i]->getAngle()) * deltaTime * BULLET_SPEED));
+    }
+}
+
 void calcPartMovements(std::vector<Particle*>& particles, float deltaTime) {
     for (int i = 0; i < particles.size(); i++) {
         particles[i]->setX(particles[i]->getX() + (sinD(particles[i]->getAngle()) * deltaTime/10));
@@ -50,7 +57,7 @@ void calcPartMovements(std::vector<Particle*>& particles, float deltaTime) {
     checkPartDeletion(particles);
 }
 
-void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids) {
+void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids, std::vector<Bullet*>& bullets) {
     if (ship->getCollided()) {
         GAME_OVER = true;
         ship->setIsMovingForward(false);
@@ -59,7 +66,7 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids) {
         return;
     }
 
-    // Arena Collision checks
+    // Arena with Ship Collision checks
     // right wall
     if (ship->getX() + (PLAYER_HEIGHT/2) > ARENA_WIDTH) {
         ship->setCollided(true);
@@ -74,6 +81,9 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids) {
         ship->setCollided(true);
     }
 
+    // Arena with Bullet Collision checks, same order as Arena with Ship
+    checkBulletDeletion(bullets);
+
     // Asteroid with Ship Collision check
     // Get distance between Asteroid x,y and Ship x,y and if the distance is less than Ast radius, collided.
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
@@ -85,7 +95,6 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids) {
             float distance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
             if (distance < asteroids[astCounter]->getRadius()) {
                 printf("Collided: #%d with Speed: %f\n", asteroids[astCounter]->id, asteroids[astCounter]->getSpeed());
-                // asteroids[astCounter]->toString(asteroids[astCounter]->id);
                 ship->setCollided(true);
             }
         }
@@ -103,15 +112,26 @@ void checkAstDeletion(std::vector<Asteroid*>& asteroids) {
     }
 }
 
+void checkBulletDeletion(std::vector<Bullet*>& bullets) {
+    for (int i = 0; i < bullets.size(); i++) {
+        if (bullets[i]->getX() > ARENA_WIDTH) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        } else if (bullets[i]->getX() < -ARENA_WIDTH) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        } else if (bullets[i]->getY() > ARENA_HEIGHT) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        } else if (bullets[i]->getY() < -ARENA_HEIGHT) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        }
+    }
+}
+
 void checkPartDeletion(std::vector<Particle*>& particles) {
     for (int i = 0; i < particles.size(); i++) {
-        // if (particles[i]->getSizeTimer() - PARTICLE_DECAY_MS >= 0) {
-        //     printf("%d - %d\n", particles[i]->getSizeTimer(), PARTICLE_DECAY_MS);
-        //     // printf("downsizing particle\n");
-        //     particles[i]->setSize(particles[i]->getSize() - 1);
-        //     particles[i]->setSizeTimer(particles[i]->getSizeTimer() + PARTICLE_DECAY_MS);
-        // }
-
         if (glutGet(GLUT_ELAPSED_TIME) - particles[i]->getSizeTimer() >= PARTICLE_DECAY_MS) {
             particles[i]->setSize(particles[i]->getSize() - 1);
             particles[i]->setSizeTimer(glutGet(GLUT_ELAPSED_TIME));

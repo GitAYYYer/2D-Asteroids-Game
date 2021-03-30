@@ -1,8 +1,7 @@
-#ifndef PARTICLE_H
-#define PARTICLE_H
+#ifndef BULLET_H
+#define BULLET_H
 #include "../global.h"
 #include "ship.h"
-#include "random"
 #if _WIN32
 #include <windows.h>
 #endif
@@ -16,27 +15,25 @@
 #include <GL/glut.h>
 #endif
 
-class Particle {
+class Bullet {
     private:
-        float x, y;
-        float r, g, b;
-        float size, angle;
-        int sizeTimer;
+        float x, y, speed, angle, r, g, b;
+        int size;
     public:
-        Particle(Ship* ship);
+        Bullet(Ship* ship);
         void draw();
 
         float getX();
         float getY();
-        float getSize();
+        float getSpeed();
         float getAngle();
-        int getSizeTimer();
+        int getSize();
+
         void setX(float value);
         void setY(float value);
-        void setSize(float value);
+        void setSpeed(float value);
         void setAngle(float value);
-        void setSizeTimer(int value);
-
+        void setSize(int value);
         void setRGB(float r, float g, float b);
 };
 

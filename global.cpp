@@ -11,6 +11,13 @@ extern const float ORBIT_RADIUS = 1200;
 extern const float SHIP_MOVEMENT_SPEED = 0.2;
 extern const float SHIP_ROTATION_SPEED = 0.3;
 
+extern const float SHIP_FIRING_RATE = 500;
+extern const float BULLET_SPEED = 0.3;
+extern const int BULLET_SIZE = 6;
+extern const float BULLET_R = 0;
+extern const float BULLET_G = 0;
+extern const float BULLET_B = 255;
+
 extern const int PARTICLE_START_SIZE = 5;
 extern const int PARTICLE_DECAY_MS = 100;
 extern const int PARTICLE_AMT = 3;

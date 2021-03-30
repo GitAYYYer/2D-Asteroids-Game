@@ -2,9 +2,11 @@
 
 Ship* inputShip; 
 ParticleManager* inputParticleManager;
-Input::Input(Ship* shipArg, ParticleManager* pmArg) {
+BulletManager* inputBulletManager;
+Input::Input(Ship* shipArg, ParticleManager* pmArg, BulletManager* bmArg) {
     inputShip = shipArg;
     inputParticleManager = pmArg;
+    inputBulletManager = bmArg;
 }
 
 void keyboardDown(unsigned char key, int x, int y) {
@@ -37,5 +39,13 @@ void keyboardRelease(unsigned char key, int x, int y) {
     } else if (key == FORWARD) {
         inputShip->setIsMovingForward(false);
         inputParticleManager->setShipIsMoving(false);
+    }
+}
+
+void mouseDown(int button, int state, int x, int y) {
+    if (button == 0 && state == 0) {
+        inputBulletManager->setShipIsShooting(true);
+    } else if (button == 0 && state == 1) {
+        inputBulletManager->setShipIsShooting(false);
     }
 }

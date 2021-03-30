@@ -15,6 +15,15 @@ extern const float ORBIT_RADIUS;
 extern const float SHIP_MOVEMENT_SPEED;
 extern const float SHIP_ROTATION_SPEED;
 
+// Firing Rate -> 1 Bullet per X milliseconds
+extern const float SHIP_FIRING_RATE;
+extern const float BULLET_SPEED;
+extern const int BULLET_SIZE;
+extern const float BULLET_R;
+extern const float BULLET_G;
+extern const float BULLET_B;
+
+
 extern const int PARTICLE_START_SIZE;
 extern const int PARTICLE_DECAY_MS;
 extern const int PARTICLE_AMT;

@@ -2,7 +2,7 @@
 
 WaveManager::WaveManager(Ship* ship) {
     this->ship = ship;
-    this->wave = 5;
+    this->wave = 0;
 }
 
 void WaveManager::populateAsteroids() {

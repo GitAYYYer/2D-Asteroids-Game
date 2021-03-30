@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "GameObject/arena.h"
 #include "GameObject/ship.h"
+#include "Manager/bulletManager.h"
 #include "Manager/particleManager.h"
 #include "Manager/waveManager.h"
 #include "global.h"
@@ -27,9 +28,10 @@ float previousTime = 0;
 
 Arena arena;
 Ship ship;
+BulletManager bulletManager(&ship);
 ParticleManager particleManager(&ship);
 WaveManager waveMananger(&ship);
-Input input(&ship, &particleManager);
+Input input(&ship, &particleManager, &bulletManager);
 
 void* threadProc(void* arg) {
     while (!GAME_OVER) {
@@ -46,6 +48,7 @@ void display() {
 
     arena.drawArena(&ship);
     ship.drawShip(&ship);
+    bulletManager.drawBullets();
     particleManager.drawParticles();
     waveMananger.drawWave();
 
@@ -66,8 +69,10 @@ void idle() {
     }
     calcShipMovement(&ship, deltaTime);
     calcAstMovements(waveMananger.getAsteroids(), deltaTime);
+    calcBulletMovements(bulletManager.getBullets(), deltaTime);
     calcPartMovements(particleManager.getParticles(), deltaTime);
-    // checkCollisions(&ship, waveMananger.getAsteroids());
+    checkCollisions(&ship, waveMananger.getAsteroids(), bulletManager.getBullets());
+    bulletManager.createBullets();
     particleManager.createParticles();
 
     previousTime = currentTime;
@@ -98,6 +103,7 @@ int main(int argc, char **argv) {
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboardDown);
     glutKeyboardUpFunc(keyboardRelease);
+    glutMouseFunc(mouseDown);
 
     glutMainLoop();
 }
