@@ -24,7 +24,7 @@ void calcBulletMovements(std::vector<Bullet*>& bullets, float deltaTime);
 
 void calcPartMovements(std::vector<Particle*>& particles, float deltaTime);
 
-void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids, std::vector<Bullet*>& bullets);
+void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<Bullet*>& bullets);
 
 void checkAstDeletion(std::vector<Asteroid*>& asteroids);
 

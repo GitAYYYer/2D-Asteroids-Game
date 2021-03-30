@@ -57,7 +57,7 @@ void calcPartMovements(std::vector<Particle*>& particles, float deltaTime) {
     checkPartDeletion(particles);
 }
 
-void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids, std::vector<Bullet*>& bullets) {
+void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<Bullet*>& bullets) {
     if (ship->getCollided()) {
         GAME_OVER = true;
         ship->setIsMovingForward(false);
@@ -84,21 +84,34 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*> asteroids, std::vector<B
     // Arena with Bullet Collision checks, same order as Arena with Ship
     checkBulletDeletion(bullets);
 
-    // Asteroid with Ship Collision check
+    // Asteroid with Ship Collision check, as well as Bullet (to reduce amount of loops in code)
     // Get distance between Asteroid x,y and Ship x,y and if the distance is less than Ast radius, collided.
+    // Similar with bullet, if distance of bullet to asteroid is less than Ast radius, collided.
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
         for(int i = 0; i < 100; i++) {
             float theta = 2.0f * M_PI * float(i) / float(100);
             float shipX = ship->getX() + (PLAYER_HEIGHT - 20) * cosf(theta);
             float shipY = ship->getY() + (PLAYER_HEIGHT - 20) * sinf(theta);
 
-            float distance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
-            if (distance < asteroids[astCounter]->getRadius()) {
+            float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
+            if (astShipDistance < asteroids[astCounter]->getRadius()) {
                 printf("Collided: #%d with Speed: %f\n", asteroids[astCounter]->id, asteroids[astCounter]->getSpeed());
                 ship->setCollided(true);
             }
+
+            for (int bullCounter = 0; bullCounter < bullets.size(); bullCounter++) {
+                float bullX = bullets[bullCounter]->getX();
+                float bullY = bullets[bullCounter]->getY();
+                float astBullDistance = sqrt(pow(bullX - asteroids[astCounter]->getX(), 2) + pow(bullY - asteroids[astCounter]->getY(), 2));
+                if (astBullDistance < asteroids[astCounter]->getRadius()) {
+                    delete bullets[bullCounter];
+                    delete asteroids[astCounter];
+                    asteroids.erase(asteroids.begin() + astCounter);
+                    bullets.erase(bullets.begin() + bullCounter);
+                }
+            }
         }
-    }
+    }    
 }
 
 // Delete asteroid if its distance from origin is greater than the orbit radius.
