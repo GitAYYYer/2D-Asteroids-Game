@@ -14,6 +14,7 @@ extern const float SHIP_ROTATION_SPEED = 0.3;
 extern const float SHIP_FIRING_RATE = 500;
 extern const float BULLET_SPEED = 0.3;
 extern const int BULLET_SIZE = 6;
+extern const int BULLET_DMG = 50;
 extern const float BULLET_R = 0;
 extern const float BULLET_G = 0;
 extern const float BULLET_B = 255;

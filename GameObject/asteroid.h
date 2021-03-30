@@ -24,13 +24,13 @@ using std::vector;
 class Asteroid {
     private:
         // Center coordinates for asteroid, speed, and its initial X,Y coords
-        float x, y, speed, spawnX, spawnY;
+        float x, y, speed, spawnX, spawnY, hp;
         float r, g, b;
         int radius, rotateDirection;
         // Target coordinate (i.e. ship's X and Y) asteroid is launching to
         float targetX, targetY;
         float currentRotation, rotateSpeed;
-        // Holds tuples of where to start the variations, for how many segments, and how much to add to the X and Y.
+        // Holds info of where to start the variations, for how many segments, and how much to add to the X and Y.
         vector<AsteroidVariation> variations;
 
     public:
@@ -44,6 +44,7 @@ class Asteroid {
         float getY();
         float getSpawnX();
         float getSpawnY();
+        float getHP();
         float getSpeed();
         int getRadius();
         float getCurrentRotation();
@@ -51,6 +52,7 @@ class Asteroid {
         float getRotateSpeed();
         void setX(float value);
         void setY(float value);
+        void setHP(float value);
         void setSpawnX(float value);
         void setSpawnY(float value);
         void setSpeed(float value);

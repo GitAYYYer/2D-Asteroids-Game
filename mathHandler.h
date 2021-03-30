@@ -28,8 +28,6 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<
 
 void checkAstDeletion(std::vector<Asteroid*>& asteroids);
 
-void checkBulletDeletion(std::vector<Bullet*>& bullets);
-
 void checkPartDeletion(std::vector<Particle*>& particles);
 
 #endif

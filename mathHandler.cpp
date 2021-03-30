@@ -82,7 +82,21 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<
     }
 
     // Arena with Bullet Collision checks, same order as Arena with Ship
-    checkBulletDeletion(bullets);
+    for (int i = 0; i < bullets.size(); i++) {
+        if (bullets[i]->getX() > ARENA_WIDTH) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        } else if (bullets[i]->getX() < -ARENA_WIDTH) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        } else if (bullets[i]->getY() > ARENA_HEIGHT) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        } else if (bullets[i]->getY() < -ARENA_HEIGHT) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        }
+    }
 
     // Asteroid with Ship Collision check, as well as Bullet (to reduce amount of loops in code)
     // Get distance between Asteroid x,y and Ship x,y and if the distance is less than Ast radius, collided.
@@ -105,9 +119,14 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<
                 float astBullDistance = sqrt(pow(bullX - asteroids[astCounter]->getX(), 2) + pow(bullY - asteroids[astCounter]->getY(), 2));
                 if (astBullDistance < asteroids[astCounter]->getRadius()) {
                     delete bullets[bullCounter];
-                    delete asteroids[astCounter];
-                    asteroids.erase(asteroids.begin() + astCounter);
                     bullets.erase(bullets.begin() + bullCounter);
+
+                    if (asteroids[astCounter]->getHP() - BULLET_DMG <= 0) {
+                        delete asteroids[astCounter];
+                        asteroids.erase(asteroids.begin() + astCounter);
+                    } else {
+                        asteroids[astCounter]->setHP(asteroids[astCounter]->getHP() - BULLET_DMG);
+                    }
                 }
             }
         }
@@ -121,24 +140,6 @@ void checkAstDeletion(std::vector<Asteroid*>& asteroids) {
         if (distance > ORBIT_RADIUS) {
             delete asteroids[i];
             asteroids.erase(asteroids.begin() + i);
-        }
-    }
-}
-
-void checkBulletDeletion(std::vector<Bullet*>& bullets) {
-    for (int i = 0; i < bullets.size(); i++) {
-        if (bullets[i]->getX() > ARENA_WIDTH) {
-            delete bullets[i];
-            bullets.erase(bullets.begin() + i);
-        } else if (bullets[i]->getX() < -ARENA_WIDTH) {
-            delete bullets[i];
-            bullets.erase(bullets.begin() + i);
-        } else if (bullets[i]->getY() > ARENA_HEIGHT) {
-            delete bullets[i];
-            bullets.erase(bullets.begin() + i);
-        } else if (bullets[i]->getY() < -ARENA_HEIGHT) {
-            delete bullets[i];
-            bullets.erase(bullets.begin() + i);
         }
     }
 }

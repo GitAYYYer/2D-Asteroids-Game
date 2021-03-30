@@ -19,6 +19,7 @@ extern const float SHIP_ROTATION_SPEED;
 extern const float SHIP_FIRING_RATE;
 extern const float BULLET_SPEED;
 extern const int BULLET_SIZE;
+extern const int BULLET_DMG;
 extern const float BULLET_R;
 extern const float BULLET_G;
 extern const float BULLET_B;

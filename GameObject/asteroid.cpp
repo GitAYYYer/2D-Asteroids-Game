@@ -13,13 +13,14 @@ Asteroid::Asteroid(Ship* ship) {
     float x = radiusOfOrbit * cosf(angle);
     float y = radiusOfOrbit * sinf(angle);
 
+    this->id = rand() % 1000; // DEBUGGING PURPOSES
     this->x = x;
     this->y = y;
     this->spawnX = x;
     this->spawnY = y;
-    this->id = rand() % 1000; // DEBUGGING PURPOSES
     this->speed = asteroidRandSpeed;
     this->radius = (rand() % (ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS)) + ASTEROID_MIN_RADIUS;
+    this->hp = (float)this->radius * 2.1;
     this->targetX = ship->getX();
     this->targetY = ship->getY();
     this->currentRotation = 0;
@@ -33,8 +34,8 @@ Asteroid::Asteroid(Ship* ship) {
         int maxStart = floor(ASTEROID_SEGMENTS/varAmt) * (i + 1);
         int startSegment = (rand() % (maxStart - minStart)) + minStart;
         int endSegment = startSegment + (rand() % 10) + 5;
-        int xVariation = getRandFloat(-this->radius/3, this->radius/3);
-        int yVariation = getRandFloat(-this->radius/3, this->radius/3);
+        int xVariation = getRandFloat(-this->radius/4, this->radius/4);
+        int yVariation = getRandFloat(-this->radius/4, this->radius/4);
 
         AsteroidVariation variation(startSegment, endSegment, xVariation, yVariation);
         variations.push_back(variation);
@@ -99,6 +100,10 @@ float Asteroid::getSpawnY() {
     return spawnY;
 }
 
+float Asteroid::getHP() {
+    return hp;
+}
+
 float Asteroid::getSpeed() {
     return speed;
 }
@@ -133,6 +138,10 @@ void Asteroid::setSpawnX(float value) {
 
 void Asteroid::setSpawnY(float value) {
     spawnY = value;
+}
+
+void Asteroid::setHP(float value) {
+    hp = value;
 }
 
 void Asteroid::setSpeed(float value) {
