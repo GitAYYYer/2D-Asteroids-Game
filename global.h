@@ -57,6 +57,5 @@ extern const float PLAYER_FILL_G;
 extern const float PLAYER_FILL_B;
 
 extern bool GAME_OVER;
-extern float TIME_ELAPSED;
-
+extern int SCORE;
 #endif

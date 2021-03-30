@@ -5,6 +5,7 @@
 #include "Manager/bulletManager.h"
 #include "Manager/particleManager.h"
 #include "Manager/waveManager.h"
+#include "Manager/textManager.h"
 #include "global.h"
 #include "input.h"
 #include "mathHandler.h"
@@ -31,6 +32,7 @@ Ship ship;
 BulletManager bulletManager(&ship);
 ParticleManager particleManager(&ship);
 WaveManager waveMananger(&ship);
+TextManager textManager;
 Input input(&ship, &particleManager, &bulletManager);
 
 void* threadProc(void* arg) {
@@ -51,6 +53,7 @@ void display() {
     bulletManager.drawBullets();
     particleManager.drawParticles();
     waveMananger.drawWave();
+    textManager.drawText();
 
     int err;
     while ((err = glGetError()) != GL_NO_ERROR)
@@ -74,6 +77,7 @@ void idle() {
     checkCollisions(&ship, waveMananger.getAsteroids(), bulletManager.getBullets());
     bulletManager.createBullets();
     particleManager.createParticles();
+    textManager.updateText();
 
     previousTime = currentTime;
     glutPostRedisplay();

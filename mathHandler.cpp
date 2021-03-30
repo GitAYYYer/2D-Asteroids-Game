@@ -109,7 +109,6 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<
 
             float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
             if (astShipDistance < asteroids[astCounter]->getRadius()) {
-                printf("Collided: #%d with Speed: %f\n", asteroids[astCounter]->id, asteroids[astCounter]->getSpeed());
                 ship->setCollided(true);
             }
 
@@ -124,6 +123,7 @@ void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<
                     if (asteroids[astCounter]->getHP() - BULLET_DMG <= 0) {
                         delete asteroids[astCounter];
                         asteroids.erase(asteroids.begin() + astCounter);
+                        SCORE += 1;
                     } else {
                         asteroids[astCounter]->setHP(asteroids[astCounter]->getHP() - BULLET_DMG);
                     }

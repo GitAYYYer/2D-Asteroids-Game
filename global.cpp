@@ -51,5 +51,4 @@ extern const float PLAYER_FILL_G = 0;
 extern const float PLAYER_FILL_B = 255;
 
 bool GAME_OVER = false;
-// keep track of how long the player lasted.
-float TIME_ELAPSED = 0;
+int SCORE = 0;

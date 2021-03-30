@@ -8,7 +8,6 @@ WaveManager::WaveManager(Ship* ship) {
 void WaveManager::populateAsteroids() {
     for (int i = 0; i < wave; i++) {
         Asteroid* newAsteroid = new Asteroid(ship);
-        printf("New Asteroid #%d, Rotation: %f\n", newAsteroid->id, newAsteroid->getCurrentRotation());
         asteroids.push_back(newAsteroid);
     }
 }
