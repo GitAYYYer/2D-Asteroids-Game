@@ -23,7 +23,7 @@ class Arena {
         float orbitRadius;
     public:
         Arena();
-        void drawArena(Ship* ship);
+        void draw(Ship* ship);
         void checkWarningDistance(Ship* ship);
         float getOrbitRadius();
 };

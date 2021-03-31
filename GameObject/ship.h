@@ -21,7 +21,7 @@ class Ship {
 
     public:
         Ship();
-        void drawShip(Ship* ship);
+        void draw();
 
         float getX();
         float getY();

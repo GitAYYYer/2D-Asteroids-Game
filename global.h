@@ -60,6 +60,7 @@ extern const float PLAYER_FILL_R;
 extern const float PLAYER_FILL_G;
 extern const float PLAYER_FILL_B;
 
+extern bool NEW_GAME;
 extern bool GAME_OVER;
 extern int SCORE;
 #endif

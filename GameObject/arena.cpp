@@ -6,7 +6,7 @@ Arena::Arena() {
     orbitRadius =  ORBIT_RADIUS;
 }
 
-void Arena::drawArena(Ship* ship) {
+void Arena::draw(Ship* ship) {
     // Draw Arena as LINE_LOOP
     glBegin(GL_LINE_LOOP);
     checkWarningDistance(ship);

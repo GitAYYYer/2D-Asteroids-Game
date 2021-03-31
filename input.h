@@ -9,7 +9,7 @@
 
 class Input {
     public:
-        Input(Ship* ship, ParticleManager* particleManager, BulletManager* bulletManager);
+        Input(Ship* ship, BulletManager* bulletManager, ParticleManager* particleManager);
 };
 
 const char FORWARD = 'w';

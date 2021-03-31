@@ -1,12 +1,12 @@
 #include "input.h"
 
 Ship* inputShip; 
-ParticleManager* inputParticleManager;
 BulletManager* inputBulletManager;
-Input::Input(Ship* shipArg, ParticleManager* pmArg, BulletManager* bmArg) {
+ParticleManager* inputParticleManager;
+Input::Input(Ship* shipArg, BulletManager* bmArg, ParticleManager* pmArg) {
     inputShip = shipArg;
-    inputParticleManager = pmArg;
     inputBulletManager = bmArg;
+    inputParticleManager = pmArg;
 }
 
 void keyboardDown(unsigned char key, int x, int y) {

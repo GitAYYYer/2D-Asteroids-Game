@@ -26,3 +26,7 @@ void WaveManager::prepNextWave() {
 std::vector<Asteroid*>& WaveManager::getAsteroids() {
     return asteroids;
 }
+
+int WaveManager::getWave() {
+    return wave;
+}

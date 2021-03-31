@@ -9,33 +9,33 @@ Ship::Ship() {
     this->isRotatingRight = false;
 }
 
-void Ship::drawShip(Ship* ship) {
+void Ship::draw() {
     if (!GAME_OVER) {
         glPushMatrix();
-            glTranslatef(ship->x, ship->y + 6, 0);
+            glTranslatef(this->x, this->y + 6, 0);
             glRotatef(currentRotation, 0, 0, 1);
-            glTranslatef(-ship->x, -ship->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 6, 0);
 
             glBegin(GL_TRIANGLE_STRIP);
             glColor3f(PLAYER_FILL_R, PLAYER_FILL_G, PLAYER_FILL_B);
-            glVertex2f(ship->x + PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
-            glVertex2f(ship->x, ship->y - (PLAYER_HEIGHT/2)); // bottom middle
-            glVertex2f(ship->x, ship->y + (PLAYER_HEIGHT/2)); // top middle
-            glVertex2f(ship->x - PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
+            glVertex2f(this->x + PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
+            glVertex2f(this->x, this->y - (PLAYER_HEIGHT/2)); // bottom middle
+            glVertex2f(this->x, this->y + (PLAYER_HEIGHT/2)); // top middle
+            glVertex2f(this->x - PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
             glEnd();
         glPopMatrix();
 
         glPushMatrix();
-            glTranslatef(ship->x, ship->y + 6, 0);
+            glTranslatef(this->x, this->y + 6, 0);
             glRotatef(currentRotation, 0, 0, 1);
-            glTranslatef(-ship->x, -ship->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 6, 0);
 
             glBegin(GL_LINE_LOOP);
             glColor3f(PLAYER_OUTLINE_R, PLAYER_OUTLINE_G , PLAYER_OUTLINE_B);
-            glVertex2f(ship->x, ship->y - (PLAYER_HEIGHT/2)); // bottom middle
-            glVertex2f(ship->x + PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
-            glVertex2f(ship->x, ship->y + (PLAYER_HEIGHT/2)); // top middle
-            glVertex2f(ship->x - PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
+            glVertex2f(this->x, this->y - (PLAYER_HEIGHT/2)); // bottom middle
+            glVertex2f(this->x + PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
+            glVertex2f(this->x, this->y + (PLAYER_HEIGHT/2)); // top middle
+            glVertex2f(this->x - PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
             glEnd();
         glPopMatrix();
 
@@ -51,30 +51,30 @@ void Ship::drawShip(Ship* ship) {
         // glEnd();
     } else {
         glPushMatrix();
-            glTranslatef(ship->x, ship->y + 6, 0);
+            glTranslatef(this->x, this->y + 6, 0);
             glRotatef(currentRotation++, 0, 0, 1);
-            glTranslatef(-ship->x, -ship->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 6, 0);
 
             glBegin(GL_TRIANGLE_STRIP);
             glColor3f(PLAYER_FILL_R, PLAYER_FILL_G, PLAYER_FILL_B);
-            glVertex2f(ship->x + PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
-            glVertex2f(ship->x, ship->y - (PLAYER_HEIGHT/2)); // bottom middle
-            glVertex2f(ship->x, ship->y + (PLAYER_HEIGHT/2)); // top middle
-            glVertex2f(ship->x - PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
+            glVertex2f(this->x + PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
+            glVertex2f(this->x, this->y - (PLAYER_HEIGHT/2)); // bottom middle
+            glVertex2f(this->x, this->y + (PLAYER_HEIGHT/2)); // top middle
+            glVertex2f(this->x - PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
             glEnd();
         glPopMatrix();
 
         glPushMatrix();
-            glTranslatef(ship->x, ship->y + 6, 0);
+            glTranslatef(this->x, this->y + 6, 0);
             glRotatef(currentRotation++, 0, 0, 1);
-            glTranslatef(-ship->x, -ship->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 6, 0);
 
             glBegin(GL_LINE_LOOP);
             glColor3f(PLAYER_OUTLINE_R, PLAYER_OUTLINE_G , PLAYER_OUTLINE_B);
-            glVertex2f(ship->x, ship->y - (PLAYER_HEIGHT/2)); // bottom middle
-            glVertex2f(ship->x + PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
-            glVertex2f(ship->x, ship->y + (PLAYER_HEIGHT/2)); // top middle
-            glVertex2f(ship->x - PLAYER_WIDTH_HALF, ship->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
+            glVertex2f(this->x, this->y - (PLAYER_HEIGHT/2)); // bottom middle
+            glVertex2f(this->x + PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot right
+            glVertex2f(this->x, this->y + (PLAYER_HEIGHT/2)); // top middle
+            glVertex2f(this->x - PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
             glEnd();
         glPopMatrix();
     }
