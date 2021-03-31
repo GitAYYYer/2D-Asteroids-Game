@@ -13,8 +13,8 @@ class ParticleManager {
         ParticleManager(Ship* ship);
         void createParticles();
         void drawParticles();
+        
         std::vector<Particle*>& getParticles();
-
         bool getShipisMoving();
         void setShipIsMoving(bool value);
 };

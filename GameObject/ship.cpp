@@ -80,6 +80,16 @@ void Ship::draw() {
     }
 }
 
+void Ship::reset() {
+    this->x = -ARENA_WIDTH + 50;
+    this->y = -ARENA_HEIGHT + 50;
+    this->currentRotation = -45.0f;
+    this->isMovingForward = false;
+    this->isRotatingLeft = false;
+    this->isRotatingRight = false;
+    this->collided = false;
+}
+
 float Ship::getX() {
     return x;
 }

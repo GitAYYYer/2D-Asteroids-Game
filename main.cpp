@@ -33,7 +33,7 @@ void idle() {
     float currentTime = glutGet(GLUT_ELAPSED_TIME);
     float deltaTime = currentTime - previousTime;
     // Skip the first instance of idle() where previousTime doesn't actually have a value yet.
-    // Otherwise, deltaTime will be equal to just currentTime and calc methods will have an incorrect timeDelta.
+    // Otherwise, deltaTime will be equal to just currentTime and calc methods will have an incorrect deltaTime.
     if (previousTime == 0) {
         previousTime = currentTime;
         return;
@@ -43,6 +43,7 @@ void idle() {
     gameManager.createBullets();
     gameManager.createParticles();
     gameManager.updateText();
+    gameManager.checkRestart();
 
     previousTime = currentTime;
     glutPostRedisplay();

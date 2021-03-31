@@ -23,6 +23,11 @@ void WaveManager::prepNextWave() {
     populateAsteroids();
 }
 
+void WaveManager::reset() {
+    this->wave = 0;
+    asteroids.clear();
+}
+
 std::vector<Asteroid*>& WaveManager::getAsteroids() {
     return asteroids;
 }

@@ -14,6 +14,8 @@ class WaveManager {
         void populateAsteroids();
         void drawWave();
         void prepNextWave();
+        void reset();
+        
         std::vector<Asteroid*>& getAsteroids();
         int getWave();
 };

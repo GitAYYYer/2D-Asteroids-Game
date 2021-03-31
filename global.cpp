@@ -56,4 +56,5 @@ extern const float PLAYER_FILL_B = 255;
 
 bool NEW_GAME = true;
 bool GAME_OVER = false;
+bool RESTART_GAME = false;
 int SCORE = 0;

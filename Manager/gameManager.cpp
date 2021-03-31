@@ -9,10 +9,11 @@ WaveManager* waveManager;
 TextManager* textManager;
 
 void* wavesThread(void* arg) {
-    while (!GAME_OVER) {
-        printf("Preparing wave %d\n", waveManager->getWave() + 1);
-        waveManager->prepNextWave();
-        sleep(1 * WAVE_COOLDOWN);
+    while (true) {
+        if (!NEW_GAME) {
+            waveManager->prepNextWave();
+            sleep(1 * WAVE_COOLDOWN);
+        }
     }
     return 0;
 }
@@ -62,6 +63,18 @@ void GameManager::updateText() {
 void GameManager::manageWaves() {
     pthread_t tid;
     pthread_create(&tid, NULL, &wavesThread, NULL);
+}
+
+void GameManager::checkRestart() {
+    if (RESTART_GAME) {
+        printf("I have just restarted.\n");
+        RESTART_GAME = false;
+        GAME_OVER = false;
+        SCORE = 0;
+        ship->reset();
+        waveManager->reset();
+        textManager->reset();
+    }
 }
 
 Ship* GameManager::getShip() {

@@ -13,8 +13,11 @@ void keyboardDown(unsigned char key, int x, int y) {
     if (key == 'q') {
         exit(EXIT_SUCCESS);
     }
+    if (NEW_GAME) {
+        NEW_GAME = false;
+    }
     if (GAME_OVER) {
-        return;
+        RESTART_GAME = true;
     }
     if (key == ROTATE_LEFT) {
         inputShip->setIsRotatingLeft(true);

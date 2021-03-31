@@ -23,6 +23,10 @@ void BulletManager::drawBullets() {
     }
 }
 
+void BulletManager::reset() {
+    lastBulletTimer = 0;
+}
+
 std::vector<Bullet*>& BulletManager::getBullets() {
     return bullets;
 }

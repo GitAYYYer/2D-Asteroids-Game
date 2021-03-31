@@ -38,6 +38,7 @@ class GameManager {
         void createParticles();
         void updateText();
         void manageWaves();
+        void checkRestart();
 
         Ship* getShip();
         Input* getInput();

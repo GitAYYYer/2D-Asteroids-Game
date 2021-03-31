@@ -14,8 +14,9 @@ class BulletManager {
         BulletManager(Ship* ship);
         void createBullets();
         void drawBullets();
-        std::vector<Bullet*>& getBullets();
+        void reset();
 
+        std::vector<Bullet*>& getBullets();
         bool getShipIsShooting();
         int getLastBulletTimer();
         void setShipIsShooting(bool value);
