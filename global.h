@@ -1,7 +1,11 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 #include <math.h>
-// Arena Related
+extern const int ORTHO_LEFT;
+extern const int ORTHO_RIGHT;
+extern const int ORTHO_DOWN;
+extern const int ORTHO_UP;
+
 extern const float ARENA_R;
 extern const float ARENA_G;
 extern const float ARENA_B;

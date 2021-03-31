@@ -6,6 +6,7 @@
 #include "Manager/particleManager.h"
 #include "Manager/waveManager.h"
 #include "Manager/textManager.h"
+#include "Manager/gameManager.h"
 #include "global.h"
 #include "input.h"
 #include "mathHandler.h"
@@ -34,6 +35,7 @@ ParticleManager particleManager(&ship);
 WaveManager waveMananger(&ship);
 TextManager textManager;
 Input input(&ship, &particleManager, &bulletManager);
+GameManager gameManager(&ship, &waveMananger, &textManager);
 
 void* threadProc(void* arg) {
     while (!GAME_OVER) {
@@ -86,7 +88,7 @@ void idle() {
 void init() {
     /* In this simple program these OpenGL calls only need to be done once, */
     glMatrixMode(GL_PROJECTION);
-    glOrtho(-960.0, 960.0, -540.0, 540.0, 0.0, 1.0);
+    glOrtho(ORTHO_LEFT, ORTHO_RIGHT, ORTHO_DOWN, ORTHO_UP, 0.0, 1.0);
     glMatrixMode(GL_MODELVIEW);
 
     // Create thread for managing waves

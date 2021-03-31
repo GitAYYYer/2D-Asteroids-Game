@@ -17,7 +17,11 @@ Text::Text(string text, float x, float y) {
 }
 
 int Text::calcWidth(char buffer[]) {
-    return 0;
+    int newWidth = 0;
+    for (int i = 0; i < this->length; i++) {
+        newWidth += glutBitmapWidth(GLUT_BITMAP_8_BY_13, this->buffer[i]);
+    }
+    return newWidth;
 }
 
 void Text::draw() {
@@ -32,6 +36,30 @@ void Text::updateTimeAlive(int glutTime) {
     int seconds = glutTime/1000%60;
     sprintf(this->buffer, "%dm%ds", minutes, seconds);
     this->length = strlen(this->buffer);
+    this->width = calcWidth(this->buffer);
+
+    // Give 20 units of 'padding' for timeAlive
+    this->x = ORTHO_LEFT + 20;
+    this->y = ORTHO_UP - 20;
+}
+
+void Text::updateScore(int newScore) {
+    sprintf(this->buffer, "%d", newScore);
+    this->length = strlen(this->buffer);
+    this->width = calcWidth(this->buffer);
+
+    // Give 20 units of 'padding' for score, need to account for score width too.
+    this->x = ORTHO_RIGHT - 20 - this->width;
+    this->y = ORTHO_UP - 20;
+}
+
+void Text::setPos(float x, float y) {
+    this->x = x;
+    this->y = y;
+}
+
+char* Text::getBuffer() {
+    return buffer;
 }
 
 void Text::setBuffer(int newNumber) {

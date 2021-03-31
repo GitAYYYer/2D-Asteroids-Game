@@ -2,29 +2,35 @@
 
 Text* timeAlive;
 Text* score;
-Text startGame("start", 0, 0);
-Text gameOver("gameover", 0, 0);
+Text* startGame;
+Text* gameOver;
 TextManager::TextManager() {
-    timeAlive = new Text(0, -900, 500);
-    score = new Text(0, 900, 500);
-    // Text score(0, -400, 500);
-    // // init startGame and gameOver but do not display them
-    // Text startGame("Press any key to start...", 0, 0);
-    // Text gameOver("GAME OVER!", 0, 0);
+    timeAlive = new Text(0, 0, 0);
+    score = new Text(0, 0, 0);
+    startGame = new Text("Press any key to start...", 0, 0);
+    gameOver = new Text("GAME OVER!", 0, 0);
+
+    gameOver->setPos(-gameOver->calcWidth(gameOver->getBuffer())/2, -4);
+    startGame->setPos(-startGame->calcWidth(startGame->getBuffer())/2, -4);
 }
 
 void TextManager::drawText() {
     timeAlive->draw();
     score->draw();
-    // startGame.draw();
-    // this->score.drawText();
-    // this->startGame.drawText();
-    // this->gameOver.drawText();
+
+    if (GAME_OVER) {
+        gameOver->draw();
+    }
 }
 
 void TextManager::updateText() {
     if (!GAME_OVER) {
         timeAlive->updateTimeAlive(glutGet(GLUT_ELAPSED_TIME));
-        score->setBuffer(SCORE);
+        score->updateScore(SCORE);
     }
+}
+
+void TextManager::resetText() {
+    timeAlive->updateTimeAlive(0);
+    score->setBuffer(0);
 }

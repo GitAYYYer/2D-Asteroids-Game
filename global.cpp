@@ -1,5 +1,9 @@
 #include "global.h"
-// Probably better way than using three diff values?
+extern const int ORTHO_LEFT = -960;
+extern const int ORTHO_RIGHT = 960;
+extern const int ORTHO_DOWN = -540;
+extern const int ORTHO_UP = 540;
+
 extern const float ARENA_R = 0;
 extern const float ARENA_G = 255;
 extern const float ARENA_B = 0;
@@ -51,4 +55,4 @@ extern const float PLAYER_FILL_G = 0;
 extern const float PLAYER_FILL_B = 255;
 
 bool GAME_OVER = false;
-int SCORE = 0;
+int SCORE = 99;

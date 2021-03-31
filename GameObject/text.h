@@ -31,10 +31,12 @@ class Text {
         int calcWidth(char buffer[]);
         void draw();
         void updateTimeAlive(int glutTime);
+        void updateScore(int newScore);
 
+        void setPos(float x, float y);
+        char* getBuffer();
         void setBuffer(int newNumber);
         void setBuffer(string text);
-
 };
 
 #endif

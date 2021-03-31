@@ -6,14 +6,11 @@
 
 class TextManager {
     private:
-        // Text* timeAlive(int number, float x, float y);
-        // Text score(1, 1, 1);
-        // Text startGame("Start", 1, 1);
-        // Text gameOver("GameOver", 1, 1);
     public:
         TextManager();
         void drawText();
         void updateText();
+        void resetText();
 };
 
 #endif
