@@ -4,8 +4,6 @@
 #include "Manager/bulletManager.h"
 #include "Manager/particleManager.h"
 #include "global.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 class Input {
     public:

@@ -7,8 +7,8 @@ extern const int ORTHO_UP = 540;
 extern const float ARENA_R = 0;
 extern const float ARENA_G = 255;
 extern const float ARENA_B = 0;
-extern const float ARENA_WIDTH = 500;
-extern const float ARENA_HEIGHT = 300;
+extern const float ARENA_WIDTH = ORTHO_RIGHT * 0.75;
+extern const float ARENA_HEIGHT = ORTHO_UP * 0.75;
 extern const float WARNING_DISTANCE = 20;
 extern const float ORBIT_RADIUS = 1200;
 
@@ -36,7 +36,7 @@ extern const int ASTEROID_MAX_RADIUS = 50;
 extern const float ASTEROID_MIN_SPEED = 0.05;
 extern const float ASTEROID_MAX_SPEED = 0.2;
 extern const float ASTEROID_MIN_ROT_SPEED = 0.1;
-extern const float ASTEROID_MAX_ROT_SPEED = 0.3;
+extern const float ASTEROID_MAX_ROT_SPEED = 0.5;
 extern const float WAVE_COOLDOWN = 5.0;
 
 // 'X' units to the left from the center, 'X' units to the right from the center
