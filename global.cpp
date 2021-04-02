@@ -4,12 +4,19 @@ extern const int ORTHO_RIGHT = 960;
 extern const int ORTHO_DOWN = -540;
 extern const int ORTHO_UP = 540;
 
+// extern const int ORTHO_LEFT = -2000;
+// extern const int ORTHO_RIGHT = 2000;
+// extern const int ORTHO_DOWN = -1200;
+// extern const int ORTHO_UP = 1200;
+
 extern const float ARENA_R = 0;
 extern const float ARENA_G = 255;
 extern const float ARENA_B = 0;
-extern const float ARENA_WIDTH = ORTHO_RIGHT * 0.75;
-extern const float ARENA_HEIGHT = ORTHO_UP * 0.75;
-extern const float WARNING_DISTANCE = 20;
+extern const float ARENA_CENTER_X = (ORTHO_RIGHT + ORTHO_LEFT) / 2;
+extern const float ARENA_CENTER_Y = (ORTHO_UP + ORTHO_DOWN) / 2;
+extern const float ARENA_WIDTH = sqrt(pow(ORTHO_RIGHT - ORTHO_LEFT, 2)) * 0.4;
+extern const float ARENA_HEIGHT = sqrt(pow(ORTHO_UP - ORTHO_DOWN, 2)) * 0.4;
+extern const float WARNING_DISTANCE = 100;
 extern const float ORBIT_RADIUS = 1200;
 
 extern const float SHIP_MOVEMENT_SPEED = 0.2;

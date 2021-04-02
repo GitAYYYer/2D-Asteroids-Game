@@ -9,6 +9,8 @@ extern const int ORTHO_UP;
 extern const float ARENA_R;
 extern const float ARENA_G;
 extern const float ARENA_B;
+extern const float ARENA_CENTER_X;
+extern const float ARENA_CENTER_Y;
 // Note: Width and Height is considered as the full amount from the origin, not half and half from origin
 //      (so if equal to 400, it's 400 left from origin, and 400 right from origin)
 extern const float ARENA_WIDTH;

@@ -10,8 +10,8 @@ Asteroid::Asteroid(Ship* ship) {
     int randomNumber = rand() % segments;
     float angle = 2.0f * M_PI * (float(randomNumber) / float(segments));
     float radiusOfOrbit = ORBIT_RADIUS;
-    float x = radiusOfOrbit * cosf(angle);
-    float y = radiusOfOrbit * sinf(angle);
+    float x = ARENA_CENTER_X + radiusOfOrbit * cosf(angle);
+    float y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
 
     this->id = rand() % 1000; // DEBUGGING PURPOSES
     this->x = x;
@@ -26,6 +26,7 @@ Asteroid::Asteroid(Ship* ship) {
     this->currentRotation = 0;
     this->rotateSpeed = getRandFloat(ASTEROID_MIN_ROT_SPEED, ASTEROID_MAX_ROT_SPEED);
     this->rotateDirection = rand() % 2;
+    this->inArena = false;
 
     // Get the variations in the asteroid
     int varAmt = rand() % ASTEROID_MAX_VARIATIONS;
@@ -124,6 +125,10 @@ float Asteroid::getRotateSpeed() {
     return rotateSpeed;
 }
 
+bool Asteroid::getInArena() {
+    return inArena;
+}
+
 void Asteroid::setX(float value) {
     x = value;
 }
@@ -162,6 +167,10 @@ void Asteroid::setRotateDirection(int value) {
 
 void Asteroid::setRotateSpeed(float value) {
     rotateSpeed = value;
+}
+
+void Asteroid::setInArena(bool value) {
+    inArena = value;
 }
 
 float Asteroid::getTargetX() {

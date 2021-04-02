@@ -1,8 +1,8 @@
 #include "ship.h"
 #include "stdio.h"
 Ship::Ship() {
-    this->x = -ARENA_WIDTH + 50;
-    this->y = -ARENA_HEIGHT + 50;
+    this->x = ARENA_CENTER_X - ARENA_WIDTH + 50;
+    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 50;
     this->currentRotation = -45.0f;
     this->isMovingForward = false;
     this->isRotatingLeft = false;
@@ -12,9 +12,9 @@ Ship::Ship() {
 void Ship::draw() {
     if (!GAME_OVER) {
         glPushMatrix();
-            glTranslatef(this->x, this->y + 6, 0);
+            glTranslatef(this->x, this->y + 5, 0);
             glRotatef(currentRotation, 0, 0, 1);
-            glTranslatef(-this->x, -this->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 5, 0);
 
             glBegin(GL_TRIANGLE_STRIP);
             glColor3f(PLAYER_FILL_R, PLAYER_FILL_G, PLAYER_FILL_B);
@@ -26,9 +26,9 @@ void Ship::draw() {
         glPopMatrix();
 
         glPushMatrix();
-            glTranslatef(this->x, this->y + 6, 0);
+            glTranslatef(this->x, this->y + 5, 0);
             glRotatef(currentRotation, 0, 0, 1);
-            glTranslatef(-this->x, -this->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 5, 0);
 
             glBegin(GL_LINE_LOOP);
             glColor3f(PLAYER_OUTLINE_R, PLAYER_OUTLINE_G , PLAYER_OUTLINE_B);
@@ -40,20 +40,20 @@ void Ship::draw() {
         glPopMatrix();
 
         // THIS IS FOR DEBUGGING TO SEE SHIP'S COLLISION BOX
-        // glBegin(GL_LINE_LOOP);
-        // glColor3f(255, 255, 255);
-        // for(int i = 0; i < 100; i++) {
-        //     float theta = 2.0f * M_PI * float(i) / float(100);
-        //     float x = ship->x + (PLAYER_HEIGHT - 20) * cosf(theta);
-        //     float y = ship->y + (PLAYER_HEIGHT - 20) * sinf(theta);
-        //     glVertex2f(x, y);
-        // }
-        // glEnd();
+        glBegin(GL_LINE_LOOP);
+        glColor3f(255, 255, 255);
+        for(int i = 0; i < 100; i++) {
+            float theta = 2.0f * M_PI * float(i) / float(100);
+            float x = this->x + (PLAYER_HEIGHT/2) * cosf(theta);
+            float y = this->y + (PLAYER_HEIGHT/2) * sinf(theta);
+            glVertex2f(x, y);
+        }
+        glEnd();
     } else {
         glPushMatrix();
-            glTranslatef(this->x, this->y + 6, 0);
+            glTranslatef(this->x, this->y + 5, 0);
             glRotatef(currentRotation++, 0, 0, 1);
-            glTranslatef(-this->x, -this->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 5, 0);
 
             glBegin(GL_TRIANGLE_STRIP);
             glColor3f(PLAYER_FILL_R, PLAYER_FILL_G, PLAYER_FILL_B);
@@ -65,9 +65,9 @@ void Ship::draw() {
         glPopMatrix();
 
         glPushMatrix();
-            glTranslatef(this->x, this->y + 6, 0);
+            glTranslatef(this->x, this->y + 5, 0);
             glRotatef(currentRotation++, 0, 0, 1);
-            glTranslatef(-this->x, -this->y + 6, 0);
+            glTranslatef(-this->x, -this->y + 5, 0);
 
             glBegin(GL_LINE_LOOP);
             glColor3f(PLAYER_OUTLINE_R, PLAYER_OUTLINE_G , PLAYER_OUTLINE_B);
@@ -81,8 +81,8 @@ void Ship::draw() {
 }
 
 void Ship::reset() {
-    this->x = -ARENA_WIDTH + 50;
-    this->y = -ARENA_HEIGHT + 50;
+    this->x = ARENA_CENTER_X - ARENA_WIDTH + 50;
+    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 50;
     this->currentRotation = -45.0f;
     this->isMovingForward = false;
     this->isRotatingLeft = false;

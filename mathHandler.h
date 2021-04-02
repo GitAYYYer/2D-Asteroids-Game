@@ -9,25 +9,25 @@
 #include <random>
 #include <vector>
 
+using std::vector;
+
 // Angle should be given in degrees
 float sinD(float angle);
 // Angle should be given in degrees
 float cosD(float angle);
 
-// Calculate Ship X/Y translations
 void calcShipMovement(Ship* ship, float deltaTime);
+void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime);
+void calcBulletMovements(vector<Bullet*>& bullets, float deltaTime);
+void calcPartMovements(vector<Particle*>& particles, float deltaTime);
 
-// Calculate Asteroid X/Y translations
-void calcAstMovements(std::vector<Asteroid*>& asteroids, float deltaTime);
+void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets);
+void checkArenaShipCollision(Ship* ship);
+void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets);
+void checkAsteroidCollisions(Ship*, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets);
 
-void calcBulletMovements(std::vector<Bullet*>& bullets, float deltaTime);
+void checkAstDeletion(vector<Asteroid*>& asteroids);
 
-void calcPartMovements(std::vector<Particle*>& particles, float deltaTime);
-
-void checkCollisions(Ship* ship, std::vector<Asteroid*>& asteroids, std::vector<Bullet*>& bullets);
-
-void checkAstDeletion(std::vector<Asteroid*>& asteroids);
-
-void checkPartDeletion(std::vector<Particle*>& particles);
+void checkPartDeletion(vector<Particle*>& particles);
 
 #endif

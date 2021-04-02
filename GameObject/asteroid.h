@@ -32,6 +32,7 @@ class Asteroid {
         float currentRotation, rotateSpeed;
         // Holds info of where to start the variations, for how many segments, and how much to add to the X and Y.
         vector<AsteroidVariation> variations;
+        bool inArena;
 
     public:
         int id;
@@ -50,6 +51,7 @@ class Asteroid {
         float getCurrentRotation();
         int getRotateDirection();
         float getRotateSpeed();
+        bool getInArena();
         void setX(float value);
         void setY(float value);
         void setHP(float value);
@@ -60,6 +62,7 @@ class Asteroid {
         void setCurrentRotation(float value);
         void setRotateDirection(int value);
         void setRotateSpeed(float value);
+        void setInArena(bool value);
 
         float getTargetX();
         float getTargetY();
