@@ -10,7 +10,7 @@ TextManager* textManager;
 
 void* wavesThread(void* arg) {
     while (true) {
-        if (!NEW_GAME && !GAME_OVER) {
+        if (!NEW_GAME && !GAME_OVER && waveManager->getWave() < 1) {
             waveManager->prepNextWave();
             sleep(1 * WAVE_COOLDOWN);
         }

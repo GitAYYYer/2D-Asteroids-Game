@@ -14,19 +14,28 @@ Asteroid::Asteroid(Ship* ship) {
     float y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
 
     this->id = rand() % 1000; // DEBUGGING PURPOSES
-    this->x = x;
-    this->y = y;
-    this->spawnX = x;
-    this->spawnY = y;
+    // this->x = x;
+    // this->y = y;
+    // this->spawnX = x;
+    // this->spawnY = y;
+    // this->targetX = ship->getX();
+    // this->targetY = ship->getY();
+    this->x = 900;
+    this->y = 700;
+    this->spawnX = this->x;
+    this->spawnY = this->y;
+    this->targetX = ship->getX();
+    this->targetY = ship->getY();
+    this->theta = atan2(this->targetY - this->spawnY, this->targetX - this->spawnX) * 180/M_PI;
     this->speed = asteroidRandSpeed;
     this->radius = (rand() % (ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS)) + ASTEROID_MIN_RADIUS;
     this->hp = (float)this->radius * 2.1;
-    this->targetX = ship->getX();
-    this->targetY = ship->getY();
     this->currentRotation = 0;
     this->rotateSpeed = getRandFloat(ASTEROID_MIN_ROT_SPEED, ASTEROID_MAX_ROT_SPEED);
     this->rotateDirection = rand() % 2;
     this->inArena = false;
+    this->horizontalBounce = 0;
+    this->verticalBounce = 0;
 
     // Get the variations in the asteroid
     int varAmt = rand() % ASTEROID_MAX_VARIATIONS;
@@ -101,6 +110,10 @@ float Asteroid::getSpawnY() {
     return spawnY;
 }
 
+float Asteroid::getTheta() {
+    return theta;
+}
+
 float Asteroid::getHP() {
     return hp;
 }
@@ -129,6 +142,14 @@ bool Asteroid::getInArena() {
     return inArena;
 }
 
+bool Asteroid::getHorizontalBounce() {
+    return horizontalBounce;
+}
+
+bool Asteroid::getVerticalBounce() {
+    return verticalBounce;
+}
+
 void Asteroid::setX(float value) {
     x = value;
 }
@@ -143,6 +164,10 @@ void Asteroid::setSpawnX(float value) {
 
 void Asteroid::setSpawnY(float value) {
     spawnY = value;
+}
+
+void Asteroid::setTheta(float value) {
+    theta = value;
 }
 
 void Asteroid::setHP(float value) {
@@ -171,6 +196,14 @@ void Asteroid::setRotateSpeed(float value) {
 
 void Asteroid::setInArena(bool value) {
     inArena = value;
+}
+
+void Asteroid::setHorizontalBounce(bool value) {
+    horizontalBounce = value;
+}
+
+void Asteroid::setVerticalBounce(bool value) {
+    verticalBounce = value;
 }
 
 float Asteroid::getTargetX() {
