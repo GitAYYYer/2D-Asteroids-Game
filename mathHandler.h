@@ -21,7 +21,7 @@ float cosD(float angle);
 void calcShipMovement(Ship* ship, float deltaTime);
 void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime);
 void calcBulletMovements(vector<Bullet*>& bullets, float deltaTime);
-void calcPartMovements(vector<Particle*>& particles, float deltaTime);
+void calcPartMovements(vector<Particle*>& shipParticles, vector<Particle*>& exploParticles, float deltaTime);
 
 void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager);
 void checkArenaShipCollision(Ship* ship);
@@ -30,6 +30,6 @@ void checkAsteroidCollisions(Ship*, vector<Asteroid*>& asteroids, vector<Bullet*
 
 void checkAstDeletion(vector<Asteroid*>& asteroids);
 
-void checkPartDeletion(vector<Particle*>& particles);
+void checkPartDeletion(vector<Particle*>& shipParticles, vector<Particle*>& exploParticles);
 
 #endif

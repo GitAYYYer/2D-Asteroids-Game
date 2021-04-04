@@ -15,8 +15,9 @@ Particle::Particle(Ship* ship) {
     } while (this->r + this->g + this->b <= 255);
 }
 
-Particle::Particle(int x, int y, int speed, float angle) {
+Particle::Particle(int x, int y, float speed, float angle) {
     this->angle = angle;
+    this->speed = speed;
     this->x = x;
     this->y = y;
     this->size = EXPLO_PARTICLE_START_SIZE;
@@ -62,6 +63,10 @@ int Particle::getSizeTimer() {
     return sizeTimer;
 }
 
+float Particle::getSpeed() {
+    return speed;
+}
+
 void Particle::setX(float value) {
     x = value;
 }
@@ -80,6 +85,10 @@ void Particle::setAngle(float value) {
 
 void Particle::setSizeTimer(int value) {
     sizeTimer = value;
+}
+
+void Particle::setSpeed(float value) {
+    speed = value;
 }
 
 void Particle::setRGB(float r, float g, float b) {

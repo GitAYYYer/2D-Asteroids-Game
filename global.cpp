@@ -37,8 +37,8 @@ extern const int PARTICLE_MIN_ANGLE_OFFSET = -30;
 extern const int PARTICLE_MAX_ANGLE_OFFSET = 30;
 
 extern const int EXPLO_PARTICLE_START_SIZE = 5;
-extern const int EXPLO_PARTICLE_AMT = 10;
-extern const int EXPLO_PARTICLE_DECAY_MS = 100;
+extern const int EXPLO_PARTICLE_AMT = 20;
+extern const int EXPLO_PARTICLE_DECAY_MS = 400;
 extern const float EXPLO_PARTICLE_MIN_SPEED = 0.05;
 extern const float EXPLO_PARTICLE_MAX_SPEED = 0.2;
 

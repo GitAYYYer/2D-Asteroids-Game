@@ -59,12 +59,16 @@ void calcBulletMovements(vector<Bullet*>& bullets, float deltaTime) {
     }
 }
 
-void calcPartMovements(vector<Particle*>& particles, float deltaTime) {
-    for (int i = 0; i < particles.size(); i++) {
-        particles[i]->setX(particles[i]->getX() + (sinD(particles[i]->getAngle()) * deltaTime/10));
-        particles[i]->setY(particles[i]->getY() - (cosD(particles[i]->getAngle()) * deltaTime/10));
+void calcPartMovements(vector<Particle*>& shipParticles, vector<Particle*>& exploParticles, float deltaTime) {
+    for (int i = 0; i < shipParticles.size(); i++) {
+        shipParticles[i]->setX(shipParticles[i]->getX() + (sinD(shipParticles[i]->getAngle()) * deltaTime/10));
+        shipParticles[i]->setY(shipParticles[i]->getY() - (cosD(shipParticles[i]->getAngle()) * deltaTime/10));
     }
-    checkPartDeletion(particles);
+    for (int i = 0; i < exploParticles.size(); i++) {
+        exploParticles[i]->setX(exploParticles[i]->getX() - (sinD(exploParticles[i]->getAngle()) * exploParticles[i]->getSpeed() * deltaTime));
+        exploParticles[i]->setY(exploParticles[i]->getY() + (cosD(exploParticles[i]->getAngle()) * exploParticles[i]->getSpeed() * deltaTime));
+    }
+    checkPartDeletion(shipParticles, exploParticles);
 }
 
 void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
@@ -229,15 +233,25 @@ void checkAstDeletion(vector<Asteroid*>& asteroids) {
     }
 }
 
-void checkPartDeletion(vector<Particle*>& particles) {
-    for (int i = 0; i < particles.size(); i++) {
-        if (glutGet(GLUT_ELAPSED_TIME) - particles[i]->getSizeTimer() >= PARTICLE_DECAY_MS) {
-            particles[i]->setSize(particles[i]->getSize() - 1);
-            particles[i]->setSizeTimer(glutGet(GLUT_ELAPSED_TIME));
+void checkPartDeletion(vector<Particle*>& shipParticles, vector<Particle*>& exploParticles) {
+    for (int i = 0; i < shipParticles.size(); i++) {
+        if (glutGet(GLUT_ELAPSED_TIME) - shipParticles[i]->getSizeTimer() >= PARTICLE_DECAY_MS) {
+            shipParticles[i]->setSize(shipParticles[i]->getSize() - 1);
+            shipParticles[i]->setSizeTimer(glutGet(GLUT_ELAPSED_TIME));
         }
-        if (particles[i]->getSize() == 0) {
-            delete particles[i];
-            particles.erase(particles.begin() + i);
+        if (shipParticles[i]->getSize() == 0) {
+            delete shipParticles[i];
+            shipParticles.erase(shipParticles.begin() + i);
+        }
+    }
+    for (int i = 0; i < exploParticles.size(); i++) {
+        if (glutGet(GLUT_ELAPSED_TIME) - exploParticles[i]->getSizeTimer() >= EXPLO_PARTICLE_DECAY_MS) {
+            exploParticles[i]->setSize(exploParticles[i]->getSize() - 1);
+            exploParticles[i]->setSizeTimer(glutGet(GLUT_ELAPSED_TIME));
+        }
+        if (exploParticles[i]->getSize() == 0) {
+            delete exploParticles[i];
+            exploParticles.erase(exploParticles.begin() + i);
         }
     }
 }

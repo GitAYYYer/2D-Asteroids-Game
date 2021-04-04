@@ -25,7 +25,7 @@ class Particle {
         float speed; // not used for ship particles, used only for explosion particles.
     public:
         Particle(Ship* ship);
-        Particle(int x, int y, int speed, float angle);
+        Particle(int x, int y, float speed, float angle);
         void draw();
 
         float getX();
@@ -33,11 +33,13 @@ class Particle {
         float getSize();
         float getAngle();
         int getSizeTimer();
+        float getSpeed();
         void setX(float value);
         void setY(float value);
         void setSize(float value);
         void setAngle(float value);
         void setSizeTimer(int value);
+        void setSpeed(float value);
 
         void setRGB(float r, float g, float b);
 };
