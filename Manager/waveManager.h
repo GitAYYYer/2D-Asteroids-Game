@@ -8,7 +8,7 @@ class WaveManager {
     private:
         std::vector<Asteroid*> asteroids;
         Ship* ship;
-        int wave;
+        float wave;
     public:
         WaveManager(Ship* ship);
         void populateAsteroids();

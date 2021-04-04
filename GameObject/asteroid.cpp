@@ -14,28 +14,33 @@ Asteroid::Asteroid(Ship* ship) {
     float y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
 
     this->id = rand() % 1000; // DEBUGGING PURPOSES
-    // this->x = x;
-    // this->y = y;
-    // this->spawnX = x;
-    // this->spawnY = y;
-    // this->targetX = ship->getX();
-    // this->targetY = ship->getY();
-    this->x = 900;
-    this->y = 700;
-    this->spawnX = this->x;
-    this->spawnY = this->y;
+    this->x = x;
+    this->y = y;
+    this->spawnX = x;
+    this->spawnY = y;
     this->targetX = ship->getX();
     this->targetY = ship->getY();
+    // this->x = 306;
+    // this->y = -500;
+    // this->spawnX = this->x;
+    // this->spawnY = this->y;
+    // this->targetX = ship->getX();
+    // this->targetY = ship->getY();
     this->theta = atan2(this->targetY - this->spawnY, this->targetX - this->spawnX) * 180/M_PI;
     this->speed = asteroidRandSpeed;
     this->radius = (rand() % (ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS)) + ASTEROID_MIN_RADIUS;
+    // this->speed = 0.2;
+    // this->radius = 40;
     this->hp = (float)this->radius * 2.1;
     this->currentRotation = 0;
     this->rotateSpeed = getRandFloat(ASTEROID_MIN_ROT_SPEED, ASTEROID_MAX_ROT_SPEED);
     this->rotateDirection = rand() % 2;
     this->inArena = false;
-    this->horizontalBounce = 0;
-    this->verticalBounce = 0;
+    this->horizontalBounce = false;
+    this->verticalBounce = false;
+    this->asteroidBounce = false;
+
+    printf("Asteroid #%d, Speed: %f, Radius: %d, (x,y): (%f,%f)\n", id, speed, radius, this->x, this->y);
 
     // Get the variations in the asteroid
     int varAmt = rand() % ASTEROID_MAX_VARIATIONS;
@@ -150,6 +155,10 @@ bool Asteroid::getVerticalBounce() {
     return verticalBounce;
 }
 
+bool Asteroid::getAsteroidBounce() {
+    return asteroidBounce;
+}
+
 void Asteroid::setX(float value) {
     x = value;
 }
@@ -204,6 +213,10 @@ void Asteroid::setHorizontalBounce(bool value) {
 
 void Asteroid::setVerticalBounce(bool value) {
     verticalBounce = value;
+}
+
+void Asteroid::setAsteroidBounce(bool value) {
+    asteroidBounce = value;
 }
 
 float Asteroid::getTargetX() {
