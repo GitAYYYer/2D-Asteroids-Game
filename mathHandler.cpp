@@ -67,7 +67,7 @@ void calcPartMovements(vector<Particle*>& particles, float deltaTime) {
     checkPartDeletion(particles);
 }
 
-void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets) {
+void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     if (ship->getCollided()) {
         GAME_OVER = true;
         ship->setIsMovingForward(false);
@@ -82,10 +82,10 @@ void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& 
     // Arena with Bullet Collision checks, same order as Arena with Ship
     checkArenaBulletCollision(ship, bullets);
 
-    // Asteroid Collision checks with Ship, Bullets and Arena  walls.
+    // Asteroid Collision checks with Ship, Bullets Arena walls and asteroids.
     // Get distance between Asteroid x,y and Ship x,y and if the distance is less than Ast radius, collided.
     // Similar with bullet, if distance of bullet to asteroid is less than Ast radius, collided.
-    checkAsteroidCollisions(ship, asteroids, bullets);
+    checkAsteroidCollisions(ship, asteroids, bullets, waveManager, particleManager);
 }
 
 void checkArenaShipCollision(Ship* ship) {
@@ -128,7 +128,7 @@ void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets) {
     }
 }
 
-void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets) {
+void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
         // Create bounding circle around ship to check collision with asteroid
         // for(int i = 0; i < 100; i++) {
@@ -152,6 +152,10 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
                 bullets.erase(bullets.begin() + bullCounter);
 
                 if (asteroids[astCounter]->getHP() - BULLET_DMG <= 0) {
+                    if (!asteroids[astCounter]->getFromSplit()) {
+                        waveManager->splitAsteroid(astCounter, sinD, cosD);
+                    }
+                    particleManager->createExplosion(asteroids[astCounter]->getX(), asteroids[astCounter]->getY());
                     delete asteroids[astCounter];
                     asteroids.erase(asteroids.begin() + astCounter);
                     SCORE += 1;

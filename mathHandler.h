@@ -4,6 +4,8 @@
 #include "GameObject/asteroid.h"
 #include "GameObject/bullet.h"
 #include "GameObject/particle.h"
+#include "Manager/waveManager.h"
+#include "Manager/particleManager.h"
 #include <stdio.h>
 #include <math.h>
 #include <random>
@@ -21,10 +23,10 @@ void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime);
 void calcBulletMovements(vector<Bullet*>& bullets, float deltaTime);
 void calcPartMovements(vector<Particle*>& particles, float deltaTime);
 
-void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets);
+void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager);
 void checkArenaShipCollision(Ship* ship);
 void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets);
-void checkAsteroidCollisions(Ship*, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets);
+void checkAsteroidCollisions(Ship*, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager);
 
 void checkAstDeletion(vector<Asteroid*>& asteroids);
 

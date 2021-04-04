@@ -30,12 +30,17 @@ extern const float BULLET_R;
 extern const float BULLET_G;
 extern const float BULLET_B;
 
-
 extern const int PARTICLE_START_SIZE;
 extern const int PARTICLE_DECAY_MS;
 extern const int PARTICLE_AMT;
 extern const int PARTICLE_MIN_ANGLE_OFFSET;
 extern const int PARTICLE_MAX_ANGLE_OFFSET;
+
+extern const int EXPLO_PARTICLE_START_SIZE;
+extern const int EXPLO_PARTICLE_AMT;
+extern const int EXPLO_PARTICLE_DECAY_MS;
+extern const float EXPLO_PARTICLE_MIN_SPEED;
+extern const float EXPLO_PARTICLE_MAX_SPEED;
 
 extern const int ASTEROID_SEGMENTS;
 extern const int ASTEROID_MAX_VARIATIONS;

@@ -10,10 +10,14 @@ TextManager* textManager;
 
 void* wavesThread(void* arg) {
     while (true) {
-        if (!NEW_GAME && !GAME_OVER ) {
+        if (!NEW_GAME && !GAME_OVER) {
             waveManager->prepNextWave();
             sleep(1 * WAVE_COOLDOWN);
         }
+        // if (!NEW_GAME && !GAME_OVER && waveManager->getWave() < 1) {
+        //     waveManager->prepNextWave();
+        //     sleep(1 * WAVE_COOLDOWN);
+        // }
     }
     return 0;
 }
@@ -41,11 +45,11 @@ void GameManager::calcMovements(float deltaTime) {
     calcShipMovement(ship, deltaTime);
     calcAstMovements(waveManager->getAsteroids(), deltaTime);
     calcBulletMovements(bulletManager->getBullets(), deltaTime);
-    calcPartMovements(particleManager->getParticles(), deltaTime);
+    calcPartMovements(particleManager->getShipParticles(), deltaTime);
 }
 
 void GameManager::checkCollisions() {
-    MATHHANDLER_H::checkCollisions(ship, waveManager->getAsteroids(), bulletManager->getBullets());
+    MATHHANDLER_H::checkCollisions(ship, waveManager->getAsteroids(), bulletManager->getBullets(), waveManager, particleManager);
 }
 
 void GameManager::createBullets() {
@@ -53,7 +57,7 @@ void GameManager::createBullets() {
 }
 
 void GameManager::createParticles() {
-    particleManager->createParticles();
+    particleManager->createShipParticles();
 }
 
 void GameManager::updateText() {

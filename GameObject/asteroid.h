@@ -34,6 +34,7 @@ class Asteroid {
         float currentRotation, rotateSpeed;
         bool inArena;
         bool horizontalBounce, verticalBounce, asteroidBounce;
+        bool fromSplit;
         // Holds info of where to start the variations, for how many segments, and how much to add to the X and Y.
         vector<AsteroidVariation> variations;
 
@@ -59,6 +60,7 @@ class Asteroid {
         bool getHorizontalBounce();
         bool getVerticalBounce();
         bool getAsteroidBounce();
+        bool getFromSplit();
         void setX(float value);
         void setY(float value);
         void setHP(float value);
@@ -74,6 +76,7 @@ class Asteroid {
         void setHorizontalBounce(bool value);
         void setVerticalBounce(bool value);
         void setAsteroidBounce(bool value);
+        void setFromSplit(bool value);
 
         float getTargetX();
         float getTargetY();

@@ -15,6 +15,7 @@ class WaveManager {
         void drawWave();
         void prepNextWave();
         void reset();
+        void splitAsteroid(int counter, float sinD(float), float cosD(float));
         
         std::vector<Asteroid*>& getAsteroids();
         int getWave();

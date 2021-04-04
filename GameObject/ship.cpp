@@ -1,10 +1,10 @@
 #include "ship.h"
 #include "stdio.h"
 Ship::Ship() {
-    this->x = ARENA_CENTER_X - ARENA_WIDTH + 50;
-    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 50;
-    // this->x = ARENA_CENTER_X;
-    // this->y = -400;
+    // this->x = ARENA_CENTER_X - ARENA_WIDTH + 50;
+    // this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 50;
+    this->x = ARENA_CENTER_X;
+    this->y = ARENA_CENTER_Y;
     this->currentRotation = -45.0f;
     this->isMovingForward = false;
     this->isRotatingLeft = false;

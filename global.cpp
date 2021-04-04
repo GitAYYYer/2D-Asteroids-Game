@@ -36,6 +36,12 @@ extern const int PARTICLE_AMT = 3;
 extern const int PARTICLE_MIN_ANGLE_OFFSET = -30;
 extern const int PARTICLE_MAX_ANGLE_OFFSET = 30;
 
+extern const int EXPLO_PARTICLE_START_SIZE = 5;
+extern const int EXPLO_PARTICLE_AMT = 10;
+extern const int EXPLO_PARTICLE_DECAY_MS = 100;
+extern const float EXPLO_PARTICLE_MIN_SPEED = 0.05;
+extern const float EXPLO_PARTICLE_MAX_SPEED = 0.2;
+
 extern const int ASTEROID_SEGMENTS = 50;
 extern const int ASTEROID_MAX_VARIATIONS = 10;
 extern const int ASTEROID_MIN_RADIUS = 20;

@@ -20,8 +20,8 @@ Asteroid::Asteroid(Ship* ship) {
     this->spawnY = y;
     this->targetX = ship->getX();
     this->targetY = ship->getY();
-    // this->x = 306;
-    // this->y = -500;
+    // this->x = -600;
+    // this->y = -00;
     // this->spawnX = this->x;
     // this->spawnY = this->y;
     // this->targetX = ship->getX();
@@ -29,7 +29,7 @@ Asteroid::Asteroid(Ship* ship) {
     this->theta = atan2(this->targetY - this->spawnY, this->targetX - this->spawnX) * 180/M_PI;
     this->speed = asteroidRandSpeed;
     this->radius = (rand() % (ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS)) + ASTEROID_MIN_RADIUS;
-    // this->speed = 0.2;
+    // this->speed = 0.1;
     // this->radius = 40;
     this->hp = (float)this->radius * 2.1;
     this->currentRotation = 0;
@@ -39,6 +39,7 @@ Asteroid::Asteroid(Ship* ship) {
     this->horizontalBounce = false;
     this->verticalBounce = false;
     this->asteroidBounce = false;
+    this->fromSplit = false;
 
     printf("Asteroid #%d, Speed: %f, Radius: %d, (x,y): (%f,%f)\n", id, speed, radius, this->x, this->y);
 
@@ -63,13 +64,13 @@ Asteroid::~Asteroid() {
 
 void Asteroid::draw() {
     glPushMatrix();
-        glRasterPos2f(this->x - 20, this->y - 4);
-        char buffer[256];
-        sprintf(buffer, "%d", this->id);
-        int len = strlen(buffer);
-        for (int i = 0; i < len; i++) {
-            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, buffer[i]);
-        }
+        // glRasterPos2f(this->x - 20, this->y - 4);
+        // char buffer[256];
+        // sprintf(buffer, "%d", this->id);
+        // int len = strlen(buffer);
+        // for (int i = 0; i < len; i++) {
+        //     glutBitmapCharacter(GLUT_BITMAP_8_BY_13, buffer[i]);
+        // }
         
         glTranslatef(this->x, this->y, 0);
         glRotatef(this->currentRotation, 0, 0, 1);
@@ -159,6 +160,10 @@ bool Asteroid::getAsteroidBounce() {
     return asteroidBounce;
 }
 
+bool Asteroid::getFromSplit() {
+    return fromSplit;
+}
+
 void Asteroid::setX(float value) {
     x = value;
 }
@@ -219,6 +224,10 @@ void Asteroid::setAsteroidBounce(bool value) {
     asteroidBounce = value;
 }
 
+void Asteroid::setFromSplit(bool value) {
+    fromSplit = value;
+}
+
 float Asteroid::getTargetX() {
     return targetX;
 }
@@ -233,10 +242,6 @@ void Asteroid::setTargetX(float value) {
 
 void Asteroid::setTargetY(float value) {
     targetY = value;
-}
-
-void Asteroid::toString(int astNumber) {
-    printf("Asteroid #%d:\n - Pos: (%f, %f)\n - Speed: %f\n - Radius: %d\n", astNumber, x, y, speed, radius);
 }
 
 float getRandFloat(float min, float max) {

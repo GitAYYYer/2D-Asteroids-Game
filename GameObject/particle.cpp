@@ -15,6 +15,19 @@ Particle::Particle(Ship* ship) {
     } while (this->r + this->g + this->b <= 255);
 }
 
+Particle::Particle(int x, int y, int speed, float angle) {
+    this->angle = angle;
+    this->x = x;
+    this->y = y;
+    this->size = EXPLO_PARTICLE_START_SIZE;
+    this->sizeTimer = glutGet(GLUT_ELAPSED_TIME);
+    do {
+        this->r = rand() % 255;
+        this->g = rand() % 255;
+        this->b = rand() % 255;
+    } while (this->r + this->g + this->b <= 255);
+}
+
 void Particle::draw() {
     glPushMatrix();
         glPointSize(this->size);
