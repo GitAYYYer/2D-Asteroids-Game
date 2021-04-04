@@ -50,7 +50,7 @@ extern const float ASTEROID_MIN_SPEED = 0.05;
 extern const float ASTEROID_MAX_SPEED = 0.2;
 extern const float ASTEROID_MIN_ROT_SPEED = 0.1;
 extern const float ASTEROID_MAX_ROT_SPEED = 0.5;
-extern const float WAVE_COOLDOWN = 8.0;
+extern const float WAVE_COOLDOWN = 10.0;
 
 // 'X' units to the left from the center, 'X' units to the right from the center
 extern const float PLAYER_WIDTH_HALF = 25;

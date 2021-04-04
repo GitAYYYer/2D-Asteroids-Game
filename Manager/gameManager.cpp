@@ -10,14 +10,14 @@ TextManager* textManager;
 
 void* wavesThread(void* arg) {
     while (true) {
-        // if (!NEW_GAME && !GAME_OVER) {
-        //     waveManager->prepNextWave();
-        //     sleep(1 * WAVE_COOLDOWN);
-        // }
-        if (!NEW_GAME && !GAME_OVER && waveManager->getWave() < 1) {
+        if (!NEW_GAME && !GAME_OVER) {
             waveManager->prepNextWave();
             sleep(1 * WAVE_COOLDOWN);
         }
+        // if (!NEW_GAME && !GAME_OVER && waveManager->getWave() < 1) {
+        //     waveManager->prepNextWave();
+        //     sleep(1 * WAVE_COOLDOWN);
+        // }
     }
     return 0;
 }
