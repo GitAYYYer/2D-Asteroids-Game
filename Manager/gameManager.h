@@ -2,6 +2,7 @@
 #define GAME_MANAGER_H
 #include "../GameObject/arena.h"
 #include "../GameObject/ship.h"
+#include "../GameObject/blackhole.h"
 #include "../global.h"
 #include "../input.h"
 #include "../mathHandler.h"
@@ -36,6 +37,7 @@ class GameManager {
         void checkCollisions();
         void createBullets();
         void createParticles();
+        void handleBlackHole();
         void updateText();
         void manageWaves();
         void checkRestart();

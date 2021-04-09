@@ -54,6 +54,14 @@ extern const float ASTEROID_MIN_ROT_SPEED = 0.1;
 extern const float ASTEROID_MAX_ROT_SPEED = 0.5;
 extern const float WAVE_COOLDOWN = 10.0;
 
+extern const int BLACKHOLE_PULSE_AMT = 5;
+extern const int BLACKHOLE_PULSE_RATE_MS = 500;
+extern const int BLACKHOLE_MIN_RADIUS = 20;
+extern const int BLACKHOLE_MAX_RADIUS = 40;
+extern const float BLACKHOLE_R = 0;
+extern const float BLACKHOLE_G = 100;
+extern const float BLACKHOLE_B = 255;
+
 // 'X' units to the left from the center, 'X' units to the right from the center
 extern const float PLAYER_WIDTH_HALF = 25;
 // Proportionate to the player width.

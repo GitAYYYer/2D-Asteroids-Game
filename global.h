@@ -55,6 +55,16 @@ extern const float ASTEROID_MIN_ROT_SPEED;
 extern const float ASTEROID_MAX_ROT_SPEED;
 extern const float WAVE_COOLDOWN;
 
+// AMT = number to subtract from current radius of blackhole.
+extern const int BLACKHOLE_PULSE_AMT;
+extern const int BLACKHOLE_PULSE_RATE_MS;
+extern const int BLACKHOLE_MIN_RADIUS;
+extern const int BLACKHOLE_MAX_RADIUS;
+extern const float BLACKHOLE_R;
+extern const float BLACKHOLE_G;
+extern const float BLACKHOLE_B;
+
+
 // 'X' units to the left from the center, 'X' units to the right from the center
 extern const float PLAYER_WIDTH_HALF;
 // Proportionate to the player width.

@@ -2,6 +2,7 @@
 
 Arena* arena;
 Ship* ship;
+BlackHole* blackHole;
 Input* input;
 BulletManager* bulletManager;
 ParticleManager* particleManager;
@@ -25,6 +26,7 @@ void* wavesThread(void* arg) {
 GameManager::GameManager() {
     arena = new Arena();
     ship = new Ship();
+    blackHole = new BlackHole();
     bulletManager = new BulletManager(ship);
     particleManager = new ParticleManager(ship);
     waveManager = new WaveManager(ship);
@@ -35,6 +37,7 @@ GameManager::GameManager() {
 void GameManager::display() {
     arena->draw(ship);
     ship->draw();
+    blackHole->draw();
     bulletManager->drawBullets();
     particleManager->drawParticles();
     waveManager->drawWave();
@@ -49,7 +52,7 @@ void GameManager::calcMovements(float deltaTime) {
 }
 
 void GameManager::checkCollisions() {
-    MATHHANDLER_H::checkCollisions(ship, waveManager->getAsteroids(), bulletManager->getBullets(), waveManager, particleManager);
+    MATHHANDLER_H::checkCollisions(ship, blackHole, waveManager->getAsteroids(), bulletManager->getBullets(), waveManager, particleManager);
 }
 
 void GameManager::createBullets() {
@@ -58,6 +61,10 @@ void GameManager::createBullets() {
 
 void GameManager::createParticles() {
     particleManager->createShipParticles();
+}
+
+void GameManager::handleBlackHole() {
+    calcBlackHolePulse(blackHole);
 }
 
 void GameManager::updateText() {

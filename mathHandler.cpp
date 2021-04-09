@@ -51,7 +51,6 @@ void calcShipAcceleration(Ship* ship) {
 }
 
 void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime) {
-    srand(time(NULL));
     for (int i = 0; i < asteroids.size(); i++) {
         float theta = asteroids[i]->getTheta();
         float xTranslation = asteroids[i]->getSpeed() * deltaTime * cosD(theta);
@@ -95,7 +94,7 @@ void calcPartMovements(vector<Particle*>& shipParticles, vector<Particle*>& expl
     checkPartDeletion(shipParticles, exploParticles);
 }
 
-void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
+void checkCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     if (ship->getCollided()) {
         GAME_OVER = true;
         ship->setIsMovingForward(false);
@@ -114,6 +113,8 @@ void checkCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& 
     // Get distance between Asteroid x,y and Ship x,y and if the distance is less than Ast radius, collided.
     // Similar with bullet, if distance of bullet to asteroid is less than Ast radius, collided.
     checkAsteroidCollisions(ship, asteroids, bullets, waveManager, particleManager);
+
+    checkBlackHoleCollisions(ship, blackHole, asteroids, bullets, particleManager);
 }
 
 void checkArenaShipCollision(Ship* ship) {
@@ -159,15 +160,9 @@ void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets) {
 void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
         // Create bounding circle around ship to check collision with asteroid
-        // for(int i = 0; i < 100; i++) {
-        //     float theta = 2.0f * M_PI * float(i) / float(100);
-        //     float shipX = ship->getX() + (PLAYER_HEIGHT/2) * cosf(theta);
-        //     float shipY = ship->getY() + (PLAYER_HEIGHT/2) * sinf(theta);
-
-        //     float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
-        //     if (astShipDistance < asteroids[astCounter]->getRadius()) {
-        //         ship->setCollided(true);
-        //     }
+        // float astShipDistance = pow(ship->getX() - asteroids[astCounter]->getX(), 2) + pow(ship->getY() - asteroids[astCounter]->getY(), 2);
+        // if (astShipDistance < pow(asteroids[astCounter]->getRadius() + (PLAYER_HEIGHT/2), 2)) {
+        //     ship->setCollided(true);
         // }
 
         // Check bullet's collision with asteroid
@@ -246,6 +241,31 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
     }
 }
 
+void checkBlackHoleCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, ParticleManager* particleManager) {
+    // Create bounding circle around ship to check collision with asteroid
+    float bhShipDist = pow(blackHole->getX() - ship->getX(), 2) + pow(blackHole->getY() - ship->getY(), 2);
+    if (bhShipDist <= pow(blackHole->getStartingRadius() + (PLAYER_HEIGHT/2), 2)) {
+        ship->setCollided(true);
+    }
+
+    for (int i = 0; i < asteroids.size(); i++) {
+        float bhAstDist = pow(blackHole->getX() - asteroids[i]->getX(), 2) + pow(blackHole->getY() - asteroids[i]->getY(), 2);
+        if (bhAstDist <= pow(blackHole->getStartingRadius() + asteroids[i]->getRadius(), 2)) {
+            particleManager->createExplosion(asteroids[i]->getX(), asteroids[i]->getY());
+            delete asteroids[i];
+            asteroids.erase(asteroids.begin() + i);
+        }
+    }
+
+    for (int i = 0; i < bullets.size(); i++) {
+        float bhBullDist = pow(blackHole->getX() - bullets[i]->getX(), 2) + pow(blackHole->getY() - bullets[i]->getY(), 2);
+        if (bhBullDist <= pow(blackHole->getStartingRadius(), 2)) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
+        }
+    }
+}
+
 // Delete asteroid if its distance from center of arena is greater than the orbit radius.
 void checkAstDeletion(vector<Asteroid*>& asteroids) {
     for (int i = 0; i < asteroids.size(); i++) {
@@ -276,6 +296,21 @@ void checkPartDeletion(vector<Particle*>& shipParticles, vector<Particle*>& expl
         if (exploParticles[i]->getSize() == 0) {
             delete exploParticles[i];
             exploParticles.erase(exploParticles.begin() + i);
+        }
+    }
+}
+
+void calcBlackHolePulse(BlackHole* blackHole) {
+    if (NEW_GAME) {
+        return;
+    }
+    if (glutGet(GLUT_ELAPSED_TIME) - blackHole->getLastPulse() >= BLACKHOLE_PULSE_RATE_MS) {
+        if (blackHole->getCurrentRadius() - BLACKHOLE_PULSE_AMT > 0) {
+            blackHole->setCurrentRadius(blackHole->getCurrentRadius() - BLACKHOLE_PULSE_AMT);
+            blackHole->setLastPulse(glutGet(GLUT_ELAPSED_TIME));
+        } else {
+            blackHole->setCurrentRadius(blackHole->getStartingRadius());
+            blackHole->setLastPulse(glutGet(GLUT_ELAPSED_TIME));
         }
     }
 }
