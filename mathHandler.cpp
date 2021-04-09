@@ -28,10 +28,6 @@ void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime) {
         float theta = asteroids[i]->getTheta();
         float xTranslation = asteroids[i]->getSpeed() * deltaTime * cosD(theta);
         float yTranslation = asteroids[i]->getSpeed() * deltaTime * sinD(theta);
-        if (asteroids[i]->getAsteroidBounce() && asteroids[i]->getInArena()) {
-            xTranslation = -xTranslation;
-            yTranslation = -yTranslation;
-        }
         if (asteroids[i]->getVerticalBounce()) {
             xTranslation = -xTranslation;
         }
@@ -135,23 +131,23 @@ void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets) {
 void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
         // Create bounding circle around ship to check collision with asteroid
-        for(int i = 0; i < 100; i++) {
-            float theta = 2.0f * M_PI * float(i) / float(100);
-            float shipX = ship->getX() + (PLAYER_HEIGHT/2) * cosf(theta);
-            float shipY = ship->getY() + (PLAYER_HEIGHT/2) * sinf(theta);
+        // for(int i = 0; i < 100; i++) {
+        //     float theta = 2.0f * M_PI * float(i) / float(100);
+        //     float shipX = ship->getX() + (PLAYER_HEIGHT/2) * cosf(theta);
+        //     float shipY = ship->getY() + (PLAYER_HEIGHT/2) * sinf(theta);
 
-            float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
-            if (astShipDistance < asteroids[astCounter]->getRadius()) {
-                ship->setCollided(true);
-            }
-        }
+        //     float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
+        //     if (astShipDistance < asteroids[astCounter]->getRadius()) {
+        //         ship->setCollided(true);
+        //     }
+        // }
 
         // Check bullet's collision with asteroid
         for (int bullCounter = 0; bullCounter < bullets.size(); bullCounter++) {
             float bullX = bullets[bullCounter]->getX();
             float bullY = bullets[bullCounter]->getY();
-            float astBullDistance = sqrt(pow(bullX - asteroids[astCounter]->getX(), 2) + pow(bullY - asteroids[astCounter]->getY(), 2));
-            if (astBullDistance < asteroids[astCounter]->getRadius()) {
+            float astBullDistance = pow(bullX - asteroids[astCounter]->getX(), 2) + pow(bullY - asteroids[astCounter]->getY(), 2);
+            if (astBullDistance <= pow(asteroids[astCounter]->getRadius(), 2)) {
                 delete bullets[bullCounter];
                 bullets.erase(bullets.begin() + bullCounter);
 
@@ -176,11 +172,19 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
         }
 
         // Check if two asteroids in the vector have collided (distance < sum of two radii)
+        // Swap their theta values and bounce bools (so they take each other's directions instead.)
         for (int j = astCounter + 1; j < asteroids.size(); j++) {
-            float distance = sqrt(pow(asteroids[astCounter]->getX() - asteroids[j]->getX(), 2) + pow(asteroids[astCounter]->getY() - asteroids[j]->getY(), 2));
-            if (distance < asteroids[astCounter]->getRadius() + asteroids[j]->getRadius()) {
-                asteroids[astCounter]->setAsteroidBounce(!asteroids[astCounter]->getAsteroidBounce());
-                asteroids[j]->setAsteroidBounce(!asteroids[j]->getAsteroidBounce());
+            float distance = pow(asteroids[astCounter]->getX() - asteroids[j]->getX(), 2) + pow(asteroids[astCounter]->getY() - asteroids[j]->getY(), 2);
+            if (distance <= pow(asteroids[astCounter]->getRadius() + asteroids[j]->getRadius(), 2)) {
+                float tempTheta = asteroids[astCounter]->getTheta();
+                bool tempVertBounce = asteroids[astCounter]->getVerticalBounce();
+                bool tempHoriBounce = asteroids[astCounter]->getHorizontalBounce();
+                asteroids[astCounter]->setTheta(asteroids[j]->getTheta());
+                asteroids[astCounter]->setVerticalBounce(asteroids[j]->getVerticalBounce());
+                asteroids[astCounter]->setHorizontalBounce(asteroids[j]->getHorizontalBounce());
+                asteroids[j]->setTheta(tempTheta);
+                asteroids[j]->setVerticalBounce(tempVertBounce);
+                asteroids[j]->setHorizontalBounce(tempHoriBounce);
             }
         }
 
@@ -201,27 +205,13 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
             int astRadius = asteroids[astCounter]->getRadius();
             // right wall, left wall, top wall, bottom wall
             // dont need to form circle because the point of collision with each wall will be 1 of 4 points on the asteroid
-            // if (asteroids[astCounter]->getX() + astRadius >= ARENA_CENTER_X + ARENA_WIDTH) {
-            //     asteroids[astCounter]->setVerticalBounce(!asteroids[astCounter]->getVerticalBounce());
-            // } else if (asteroids[astCounter]->getX() - astRadius <= ARENA_CENTER_X - ARENA_WIDTH) {
-            //     asteroids[astCounter]->setVerticalBounce(!asteroids[astCounter]->getVerticalBounce());
-            // } else if (asteroids[astCounter]->getY() + astRadius >= ARENA_CENTER_Y + ARENA_HEIGHT) {
-            //     asteroids[astCounter]->setHorizontalBounce(!asteroids[astCounter]->getHorizontalBounce());
-            // } else if (asteroids[astCounter]->getY() - astRadius <= ARENA_CENTER_Y - ARENA_HEIGHT) {
-            //     asteroids[astCounter]->setHorizontalBounce(!asteroids[astCounter]->getHorizontalBounce());
-            // }
-            float rightWallDist = sqrt(pow((ARENA_CENTER_X + ARENA_WIDTH) - x, 2));
-            float leftWallDist = sqrt(pow((ARENA_CENTER_X - ARENA_WIDTH) - x, 2));
-            float topWallDist = sqrt(pow((ARENA_CENTER_Y + ARENA_HEIGHT) - y, 2));
-            float botWallDist = sqrt(pow((ARENA_CENTER_Y - ARENA_HEIGHT) - y, 2));
-
-            if (rightWallDist < astRadius) {
+            if (x + astRadius >= ARENA_CENTER_X + ARENA_WIDTH) {
                 asteroids[astCounter]->setVerticalBounce(!asteroids[astCounter]->getVerticalBounce());
-            } else if (leftWallDist < astRadius) {
+            } else if (x - astRadius <= ARENA_CENTER_X - ARENA_WIDTH) {
                 asteroids[astCounter]->setVerticalBounce(!asteroids[astCounter]->getVerticalBounce());
-            } else if (topWallDist < astRadius) {
+            } else if (y + astRadius >= ARENA_CENTER_Y + ARENA_HEIGHT) {
                 asteroids[astCounter]->setHorizontalBounce(!asteroids[astCounter]->getHorizontalBounce());
-            } else if (botWallDist < astRadius) {
+            } else if (y - astRadius <= ARENA_CENTER_Y - ARENA_HEIGHT) {
                 asteroids[astCounter]->setHorizontalBounce(!asteroids[astCounter]->getHorizontalBounce());
             }
         }
@@ -231,8 +221,8 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
 // Delete asteroid if its distance from center of arena is greater than the orbit radius.
 void checkAstDeletion(vector<Asteroid*>& asteroids) {
     for (int i = 0; i < asteroids.size(); i++) {
-        float distance = sqrt(pow(ARENA_CENTER_X - asteroids[i]->getX(), 2) + pow(ARENA_CENTER_Y - asteroids[i]->getY(), 2));
-        if (distance > ORBIT_RADIUS) {
+        float distance = pow(ARENA_CENTER_X - asteroids[i]->getX(), 2) + pow(ARENA_CENTER_Y - asteroids[i]->getY(), 2);
+        if (distance > pow(ORBIT_RADIUS, 2)) {
             delete asteroids[i];
             asteroids.erase(asteroids.begin() + i);
         }
@@ -252,10 +242,10 @@ void checkPartDeletion(vector<Particle*>& shipParticles, vector<Particle*>& expl
     }
     for (int i = 0; i < exploParticles.size(); i++) {
         if (glutGet(GLUT_ELAPSED_TIME) - exploParticles[i]->getSizeTimer() >= EXPLO_PARTICLE_DECAY_MS) {
-            exploParticles[i]->setSize(exploParticles[i]->getSize() + 1);
+            exploParticles[i]->setSize(exploParticles[i]->getSize() - 1);
             exploParticles[i]->setSizeTimer(glutGet(GLUT_ELAPSED_TIME));
         }
-        if (exploParticles[i]->getSize() == 10) {
+        if (exploParticles[i]->getSize() == 0) {
             delete exploParticles[i];
             exploParticles.erase(exploParticles.begin() + i);
         }

@@ -4,10 +4,10 @@ extern const int ORTHO_RIGHT = 960;
 extern const int ORTHO_DOWN = -540;
 extern const int ORTHO_UP = 540;
 
-// extern const int ORTHO_LEFT = -1000;
-// extern const int ORTHO_RIGHT = 1000;
-// extern const int ORTHO_DOWN = -1200;
-// extern const int ORTHO_UP = 1200;
+// extern const int ORTHO_LEFT = -500;
+// extern const int ORTHO_RIGHT = 500;
+// extern const int ORTHO_DOWN = -400;
+// extern const int ORTHO_UP = 400;
 
 extern const float ARENA_R = 0;
 extern const float ARENA_G = 255;
@@ -37,10 +37,10 @@ extern const int PARTICLE_MIN_ANGLE_OFFSET = -30;
 extern const int PARTICLE_MAX_ANGLE_OFFSET = 30;
 
 extern const int EXPLO_PARTICLE_START_SIZE = 5;
-extern const int EXPLO_PARTICLE_AMT = 20;
-extern const int EXPLO_PARTICLE_DECAY_MS = 400;
-extern const float EXPLO_PARTICLE_MIN_SPEED = 0.05;
-extern const float EXPLO_PARTICLE_MAX_SPEED = 0.2;
+extern const int EXPLO_PARTICLE_AMT = 50;
+extern const int EXPLO_PARTICLE_DECAY_MS = 100;
+extern const float EXPLO_PARTICLE_MIN_SPEED = 0.2;
+extern const float EXPLO_PARTICLE_MAX_SPEED = 0.6;
 
 extern const int ASTEROID_SEGMENTS = 50;
 extern const int ASTEROID_MAX_VARIATIONS = 10;
