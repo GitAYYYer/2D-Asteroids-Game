@@ -6,7 +6,7 @@ BulletManager::BulletManager(Ship* ship) {
 }
 
 void BulletManager::createBullets() {
-    if (ship->getCollided() || this->lastBulletTimer + SHIP_FIRING_RATE > glutGet(GLUT_ELAPSED_TIME)) {
+    if (ship->getCollided() || this->lastBulletTimer + SHIP_FIRING_RATE > glutGet(GLUT_ELAPSED_TIME) || NEW_GAME) {
         return;
     }
     // Only if ship is shooting and last bullet was at least X ms ago, create a bullet

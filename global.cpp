@@ -58,6 +58,10 @@ extern const int BLACKHOLE_PULSE_AMT = 5;
 extern const int BLACKHOLE_PULSE_RATE_MS = 500;
 extern const int BLACKHOLE_MIN_RADIUS = 20;
 extern const int BLACKHOLE_MAX_RADIUS = 40;
+extern const float BLACKHOLE_PULL_DISTANCE = 300;
+extern const float BLACKHOLE_MIN_PULL_POWER = 0.8;
+// For every X intervals closer you are to the black hole, increase the pull power
+extern const float BLACKHOLE_PULL_INTERVALS = 100;
 extern const float BLACKHOLE_R = 0;
 extern const float BLACKHOLE_G = 100;
 extern const float BLACKHOLE_B = 255;

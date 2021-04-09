@@ -60,10 +60,13 @@ extern const int BLACKHOLE_PULSE_AMT;
 extern const int BLACKHOLE_PULSE_RATE_MS;
 extern const int BLACKHOLE_MIN_RADIUS;
 extern const int BLACKHOLE_MAX_RADIUS;
+extern const float BLACKHOLE_PULL_DISTANCE;
+extern const float BLACKHOLE_MIN_PULL_POWER;
+extern const float BLACKHOLE_MAX_PULL_POWER;
+extern const float BLACKHOLE_PULL_INTERVALS;
 extern const float BLACKHOLE_R;
 extern const float BLACKHOLE_G;
 extern const float BLACKHOLE_B;
-
 
 // 'X' units to the left from the center, 'X' units to the right from the center
 extern const float PLAYER_WIDTH_HALF;

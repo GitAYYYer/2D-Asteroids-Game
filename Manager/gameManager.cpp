@@ -49,6 +49,7 @@ void GameManager::calcMovements(float deltaTime) {
     calcAstMovements(waveManager->getAsteroids(), deltaTime);
     calcBulletMovements(bulletManager->getBullets(), deltaTime);
     calcPartMovements(particleManager->getShipParticles(), particleManager->getExploParticles(), deltaTime);
+    handleBlackHole();
 }
 
 void GameManager::checkCollisions() {

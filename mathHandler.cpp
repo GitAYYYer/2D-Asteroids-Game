@@ -114,7 +114,7 @@ void checkCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& astero
     // Similar with bullet, if distance of bullet to asteroid is less than Ast radius, collided.
     checkAsteroidCollisions(ship, asteroids, bullets, waveManager, particleManager);
 
-    checkBlackHoleCollisions(ship, blackHole, asteroids, bullets, particleManager);
+    checkBlackHolePullAndCollisions(ship, blackHole, asteroids, bullets, particleManager);
 }
 
 void checkArenaShipCollision(Ship* ship) {
@@ -241,11 +241,23 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
     }
 }
 
-void checkBlackHoleCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, ParticleManager* particleManager) {
-    // Create bounding circle around ship to check collision with asteroid
+float getPullingPower(float distance) {
+    float diff = BLACKHOLE_PULL_DISTANCE - distance;
+    float multiplier = ceil(diff / BLACKHOLE_PULL_INTERVALS);
+    return multiplier * BLACKHOLE_MIN_PULL_POWER;
+}
+
+void checkBlackHolePullAndCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, ParticleManager* particleManager) {
     float bhShipDist = pow(blackHole->getX() - ship->getX(), 2) + pow(blackHole->getY() - ship->getY(), 2);
-    if (bhShipDist <= pow(blackHole->getStartingRadius() + (PLAYER_HEIGHT/2), 2)) {
+    if (bhShipDist <= pow(blackHole->getStartingRadius() + (PLAYER_HEIGHT/2) - 5, 2)) {
         ship->setCollided(true);
+    }
+    if (bhShipDist < pow(BLACKHOLE_PULL_DISTANCE, 2)) {
+        // get angle black hole makes with ship, so you can use it to add to ship's X and Y using sin/cos
+        float angle = (atan2(blackHole->getY() - ship->getY(), blackHole->getX() - ship->getX()) - 90) * 180/M_PI;
+        float pullPower = getPullingPower(sqrt(bhShipDist));
+        ship->setX(ship->getX() - pullPower * sinD(angle));
+        ship->setY(ship->getY() + pullPower * cosD(angle));
     }
 
     for (int i = 0; i < asteroids.size(); i++) {
@@ -255,6 +267,12 @@ void checkBlackHoleCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*
             delete asteroids[i];
             asteroids.erase(asteroids.begin() + i);
         }
+        if (bhAstDist < pow(BLACKHOLE_PULL_DISTANCE, 2)) {
+            float angle = (atan2(blackHole->getY() - asteroids[i]->getY(), blackHole->getX() - asteroids[i]->getX()) - 90) * 180/M_PI;
+            float pullPower = getPullingPower(sqrt(bhAstDist));
+            asteroids[i]->setX(asteroids[i]->getX() - pullPower * sinD(angle));
+            asteroids[i]->setY(asteroids[i]->getY() + pullPower * cosD(angle));
+        }
     }
 
     for (int i = 0; i < bullets.size(); i++) {
@@ -262,6 +280,12 @@ void checkBlackHoleCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*
         if (bhBullDist <= pow(blackHole->getStartingRadius(), 2)) {
             delete bullets[i];
             bullets.erase(bullets.begin() + i);
+        }
+        if (bhBullDist < pow(BLACKHOLE_PULL_DISTANCE, 2)) {
+            float angle = (atan2(blackHole->getY() - bullets[i]->getY(), blackHole->getX() - bullets[i]->getX()) - 90) * 180/M_PI;
+            float pullPower = getPullingPower(sqrt(bhBullDist));
+            bullets[i]->setX(bullets[i]->getX() - pullPower*8 * sinD(angle));
+            bullets[i]->setY(bullets[i]->getY() + pullPower*8 * cosD(angle));
         }
     }
 }

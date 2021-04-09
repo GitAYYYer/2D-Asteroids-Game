@@ -4,9 +4,9 @@ BlackHole::BlackHole() {
     srand(time(NULL));
     this->startingRadius = (rand() % (BLACKHOLE_MAX_RADIUS - BLACKHOLE_MIN_RADIUS)) + BLACKHOLE_MIN_RADIUS;
     this->currentRadius = this->startingRadius;
-    this->x = getRandomFloat(ARENA_CENTER_X - ARENA_WIDTH + this->startingRadius, ARENA_CENTER_X + ARENA_WIDTH - this->startingRadius);
-    this->y = getRandomFloat(ARENA_CENTER_Y - ARENA_HEIGHT + this->startingRadius, ARENA_CENTER_Y + ARENA_HEIGHT - this->startingRadius);
-    this->theta = atan2(-this->x, -this->y) * 180/M_PI;
+    // Game starts ship at bottom left of quadrant, so spawn asteroid anywhere other than there
+    this->x = getRandomFloat(0, ARENA_CENTER_X + ARENA_WIDTH - this->startingRadius);
+    this->y = getRandomFloat(0, ARENA_CENTER_Y + ARENA_HEIGHT - this->startingRadius);
     this->lastPulse = 0;
 }
 
@@ -45,10 +45,6 @@ float BlackHole::getY() {
     return y;
 }
 
-float BlackHole::getTheta() {
-    return theta;
-}
-
 int BlackHole::getStartingRadius() {
     return startingRadius;
 }
@@ -67,10 +63,6 @@ void BlackHole::setX(float value) {
 
 void BlackHole::setY(float value) {
     y = value;
-}
-
-void BlackHole::setTheta(float value) {
-    theta = value;
 }
 
 void BlackHole::setStartingRadius(int value) {

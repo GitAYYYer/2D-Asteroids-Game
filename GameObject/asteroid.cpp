@@ -50,8 +50,10 @@ Asteroid::Asteroid(Ship* ship) {
         int maxStart = floor(ASTEROID_SEGMENTS/varAmt) * (i + 1);
         int startSegment = (rand() % (maxStart - minStart)) + minStart;
         int endSegment = startSegment + (rand() % 10) + 5;
-        int xVariation = getRandFloat(-this->radius/4, this->radius/4);
-        int yVariation = getRandFloat(-this->radius/4, this->radius/4);
+        // int xVariation = getRandFloat(-this->radius/4, this->radius/4);
+        // int yVariation = getRandFloat(-this->radius/4, this->radius/4);
+        int xVariation = getRandFloat(0, this->radius/4);
+        int yVariation = getRandFloat(0, this->radius/4);
 
         AsteroidVariation variation(startSegment, endSegment, xVariation, yVariation);
         variations.push_back(variation);

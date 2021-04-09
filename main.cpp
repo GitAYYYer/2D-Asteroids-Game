@@ -42,7 +42,6 @@ void idle() {
     gameManager.checkCollisions();
     gameManager.createBullets();
     gameManager.createParticles();
-    gameManager.handleBlackHole();
     gameManager.updateText();
     gameManager.checkRestart();
 

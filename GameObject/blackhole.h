@@ -17,7 +17,7 @@
 
 class BlackHole {
     private:
-        float x, y, theta;
+        float x, y;
         int currentRadius, startingRadius, lastPulse;
     
     public:
@@ -27,13 +27,11 @@ class BlackHole {
 
         float getX();
         float getY();
-        float getTheta();
         int getCurrentRadius();
         int getStartingRadius();
         int getLastPulse();
         void setX(float value);
         void setY(float value);
-        void setTheta(float value);
         void setCurrentRadius(int value);
         void setStartingRadius(int value);
         void setLastPulse(int value);

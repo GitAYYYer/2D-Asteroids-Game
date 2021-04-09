@@ -28,7 +28,7 @@ void checkCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& astero
 void checkArenaShipCollision(Ship* ship);
 void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets);
 void checkAsteroidCollisions(Ship*, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager);
-void checkBlackHoleCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, ParticleManager* particleManager);
+void checkBlackHolePullAndCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, ParticleManager* particleManager);
 
 void checkAstDeletion(vector<Asteroid*>& asteroids);
 
