@@ -135,16 +135,16 @@ void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets) {
 void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
         // Create bounding circle around ship to check collision with asteroid
-        // for(int i = 0; i < 100; i++) {
-        //     float theta = 2.0f * M_PI * float(i) / float(100);
-        //     float shipX = ship->getX() + (PLAYER_HEIGHT/2) * cosf(theta);
-        //     float shipY = ship->getY() + (PLAYER_HEIGHT/2) * sinf(theta);
+        for(int i = 0; i < 100; i++) {
+            float theta = 2.0f * M_PI * float(i) / float(100);
+            float shipX = ship->getX() + (PLAYER_HEIGHT/2) * cosf(theta);
+            float shipY = ship->getY() + (PLAYER_HEIGHT/2) * sinf(theta);
 
-        //     float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
-        //     if (astShipDistance < asteroids[astCounter]->getRadius()) {
-        //         ship->setCollided(true);
-        //     }
-        // }
+            float astShipDistance = sqrt(pow(shipX - asteroids[astCounter]->getX(), 2) + pow(shipY - asteroids[astCounter]->getY(), 2));
+            if (astShipDistance < asteroids[astCounter]->getRadius()) {
+                ship->setCollided(true);
+            }
+        }
 
         // Check bullet's collision with asteroid
         for (int bullCounter = 0; bullCounter < bullets.size(); bullCounter++) {
@@ -162,7 +162,13 @@ void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bu
                     particleManager->createExplosion(asteroids[astCounter]->getX(), asteroids[astCounter]->getY());
                     delete asteroids[astCounter];
                     asteroids.erase(asteroids.begin() + astCounter);
-                    SCORE += 1;
+
+                    // Award player +1 extra point if the asteroid destroyed was a split one (cuz its tiny )
+                    if (asteroids[astCounter]->getFromSplit()) {
+                        SCORE += 2;
+                    } else {
+                        SCORE += 1;
+                    }
                 } else {
                     asteroids[astCounter]->setHP(asteroids[astCounter]->getHP() - BULLET_DMG);
                 }
@@ -246,10 +252,10 @@ void checkPartDeletion(vector<Particle*>& shipParticles, vector<Particle*>& expl
     }
     for (int i = 0; i < exploParticles.size(); i++) {
         if (glutGet(GLUT_ELAPSED_TIME) - exploParticles[i]->getSizeTimer() >= EXPLO_PARTICLE_DECAY_MS) {
-            exploParticles[i]->setSize(exploParticles[i]->getSize() - 1);
+            exploParticles[i]->setSize(exploParticles[i]->getSize() + 1);
             exploParticles[i]->setSizeTimer(glutGet(GLUT_ELAPSED_TIME));
         }
-        if (exploParticles[i]->getSize() == 0) {
+        if (exploParticles[i]->getSize() == 10) {
             delete exploParticles[i];
             exploParticles.erase(exploParticles.begin() + i);
         }

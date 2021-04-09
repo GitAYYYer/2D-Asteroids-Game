@@ -4,8 +4,8 @@ extern const int ORTHO_RIGHT = 960;
 extern const int ORTHO_DOWN = -540;
 extern const int ORTHO_UP = 540;
 
-// extern const int ORTHO_LEFT = -2000;
-// extern const int ORTHO_RIGHT = 2000;
+// extern const int ORTHO_LEFT = -1000;
+// extern const int ORTHO_RIGHT = 1000;
 // extern const int ORTHO_DOWN = -1200;
 // extern const int ORTHO_UP = 1200;
 
@@ -47,7 +47,7 @@ extern const int ASTEROID_MAX_VARIATIONS = 10;
 extern const int ASTEROID_MIN_RADIUS = 20;
 extern const int ASTEROID_MAX_RADIUS = 50;
 extern const float ASTEROID_MIN_SPEED = 0.05;
-extern const float ASTEROID_MAX_SPEED = 0.2;
+extern const float ASTEROID_MAX_SPEED = 0.1;
 extern const float ASTEROID_MIN_ROT_SPEED = 0.1;
 extern const float ASTEROID_MAX_ROT_SPEED = 0.5;
 extern const float WAVE_COOLDOWN = 10.0;

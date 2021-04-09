@@ -40,17 +40,6 @@ void Ship::draw() {
             glVertex2f(this->x - PLAYER_WIDTH_HALF, this->y - (PLAYER_HEIGHT/2) - PLAYER_DOWN_LENGTH); // bot left
             glEnd();
         glPopMatrix();
-
-        // THIS IS FOR DEBUGGING TO SEE SHIP'S COLLISION BOX
-        glBegin(GL_LINE_LOOP);
-        glColor3f(255, 255, 255);
-        for(int i = 0; i < 100; i++) {
-            float theta = 2.0f * M_PI * float(i) / float(100);
-            float x = this->x + (PLAYER_HEIGHT/2) * cosf(theta);
-            float y = this->y + (PLAYER_HEIGHT/2) * sinf(theta);
-            glVertex2f(x, y);
-        }
-        glEnd();
     } else {
         glPushMatrix();
             glTranslatef(this->x, this->y + 5, 0);
