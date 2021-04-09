@@ -18,7 +18,10 @@ extern const float ARENA_HEIGHT;
 extern const float WARNING_DISTANCE;
 extern const float ORBIT_RADIUS;
 
-extern const float SHIP_MOVEMENT_SPEED;
+// Determines how much the ship's speed will increase by when holding forward (up to the MAX_MOVEMENT_SPEED)
+extern const float SHIP_ACCELERATE_RATE;
+extern const float SHIP_DECELERATE_RATE;
+extern const float SHIP_MAX_MOVEMENT_SPEED;
 extern const float SHIP_ROTATION_SPEED;
 
 // Firing Rate -> 1 Bullet per X milliseconds

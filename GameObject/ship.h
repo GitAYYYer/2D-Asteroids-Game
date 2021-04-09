@@ -16,7 +16,7 @@
 
 class Ship {
     private:
-        float x, y, currentRotation;
+        float x, y, currentRotation, currentSpeed;
         bool isMovingForward, isRotatingLeft, isRotatingRight, collided;
 
     public:
@@ -27,9 +27,11 @@ class Ship {
         float getX();
         float getY();
         float getCurrentRotation();
+        float getCurrentSpeed();
         void setX(float value);
         void setY(float value);
         void setCurrentRotation(float value);
+        void setCurrentSpeed(float value);
 
         bool getIsMovingForward();
         bool getIsRotatingLeft();

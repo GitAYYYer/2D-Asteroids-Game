@@ -1,9 +1,10 @@
 #include "ship.h"
 #include "stdio.h"
 Ship::Ship() {
-    this->x = ARENA_CENTER_X - ARENA_WIDTH + 50;
-    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 50;
+    this->x = ARENA_CENTER_X - ARENA_WIDTH + 100;
+    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 100;
     this->currentRotation = -45.0f;
+    this->currentSpeed = 0;
     this->isMovingForward = false;
     this->isRotatingLeft = false;
     this->isRotatingRight = false;
@@ -70,9 +71,10 @@ void Ship::draw() {
 }
 
 void Ship::reset() {
-    this->x = ARENA_CENTER_X - ARENA_WIDTH + 50;
-    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 50;
+    this->x = ARENA_CENTER_X - ARENA_WIDTH + 100;
+    this->y = ARENA_CENTER_Y - ARENA_HEIGHT + 100;
     this->currentRotation = -45.0f;
+    this->currentSpeed = 0;
     this->isMovingForward = false;
     this->isRotatingLeft = false;
     this->isRotatingRight = false;
@@ -91,6 +93,10 @@ float Ship::getCurrentRotation() {
     return currentRotation;
 }
 
+float Ship::getCurrentSpeed() {
+    return currentSpeed;
+}
+
 void Ship::setX(float value) {
     x = value;
 }
@@ -101,6 +107,10 @@ void Ship::setY(float value) {
 
 void Ship::setCurrentRotation(float value) {
     currentRotation = value;
+}
+
+void Ship::setCurrentSpeed(float value) {
+    currentSpeed = value;
 }
 
 bool Ship::getIsMovingForward() {

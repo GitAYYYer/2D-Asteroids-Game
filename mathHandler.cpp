@@ -12,13 +12,41 @@ float cosD(float angle) {
 
 void calcShipMovement(Ship* ship, float deltaTime) {
     if (ship->getIsMovingForward()) {
-        ship->setX(ship->getX() - deltaTime * SHIP_MOVEMENT_SPEED * sinD(ship->getCurrentRotation()));
-        ship->setY(ship->getY() + deltaTime * SHIP_MOVEMENT_SPEED * cosD(ship->getCurrentRotation()));
+        if (ship->getCurrentSpeed() + SHIP_ACCELERATE_RATE < SHIP_MAX_MOVEMENT_SPEED) {
+            ship->setCurrentSpeed(ship->getCurrentSpeed() + SHIP_ACCELERATE_RATE);
+        } else {
+            ship->setCurrentSpeed(SHIP_MAX_MOVEMENT_SPEED);
+        }
+    } else {
+        if (ship->getCurrentSpeed() - SHIP_DECELERATE_RATE > 0) {
+            ship->setCurrentSpeed(ship->getCurrentSpeed() - SHIP_DECELERATE_RATE);
+        } else {
+            ship->setCurrentSpeed(0);
+        }
     }
+    ship->setX(ship->getX() - deltaTime * ship->getCurrentSpeed() * sinD(ship->getCurrentRotation()));
+    ship->setY(ship->getY() + deltaTime * ship->getCurrentSpeed() * cosD(ship->getCurrentRotation()));
+
     if (ship->getIsRotatingLeft()) {
         ship->setCurrentRotation(ship->getCurrentRotation() + deltaTime * SHIP_ROTATION_SPEED);
     } else if (ship->getIsRotatingRight()) {
         ship->setCurrentRotation(ship->getCurrentRotation() - deltaTime * SHIP_ROTATION_SPEED);
+    }
+}
+
+void calcShipAcceleration(Ship* ship) {
+    if (ship->getIsMovingForward()) {
+        if (ship->getCurrentSpeed() + SHIP_ACCELERATE_RATE < SHIP_MAX_MOVEMENT_SPEED) {
+            ship->setCurrentSpeed(ship->getCurrentSpeed() + SHIP_ACCELERATE_RATE);
+        } else {
+            ship->setCurrentSpeed(SHIP_MAX_MOVEMENT_SPEED);
+        }
+    } else {
+        if (ship->getCurrentSpeed() - SHIP_ACCELERATE_RATE > 0) {
+            ship->setCurrentSpeed(ship->getCurrentSpeed() - SHIP_ACCELERATE_RATE);
+        } else {
+            ship->setCurrentSpeed(0);
+        }
     }
 }
 

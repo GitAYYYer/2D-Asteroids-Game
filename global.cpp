@@ -19,7 +19,9 @@ extern const float ARENA_HEIGHT = sqrt(pow(ORTHO_UP - ORTHO_DOWN, 2)) * 0.4;
 extern const float WARNING_DISTANCE = 100;
 extern const float ORBIT_RADIUS = 1200;
 
-extern const float SHIP_MOVEMENT_SPEED = 0.2;
+extern const float SHIP_ACCELERATE_RATE = 0.009;
+extern const float SHIP_DECELERATE_RATE = 0.02;
+extern const float SHIP_MAX_MOVEMENT_SPEED = 0.3;
 extern const float SHIP_ROTATION_SPEED = 0.3;
 
 extern const float SHIP_FIRING_RATE = 400;
