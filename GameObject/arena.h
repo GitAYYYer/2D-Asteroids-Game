@@ -29,6 +29,4 @@ class Arena {
         float getOrbitRadius();
 };
 
-void drawOrbit();
-
 #endif

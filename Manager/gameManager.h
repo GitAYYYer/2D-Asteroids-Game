@@ -12,6 +12,7 @@
 #include "particleManager.h"
 #include "waveManager.h"
 #include "textManager.h"
+#include "bossManager.h"
 #include "vector"
 #if _WIN32
 #include <windows.h>

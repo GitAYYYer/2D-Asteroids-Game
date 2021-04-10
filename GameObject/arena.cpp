@@ -14,23 +14,6 @@ void Arena::draw(Ship* ship) {
     glVertex2f(xCenter + ARENA_WIDTH, yCenter - ARENA_HEIGHT);
     glVertex2f(xCenter - ARENA_WIDTH, yCenter - ARENA_HEIGHT);
     glEnd();
-    drawOrbit();
-}
-
-// Method is for DEBUGGING the orbit.
-void drawOrbit() {
-    int segments = 1000;
-    glBegin(GL_LINE_LOOP);
-        glColor3f(255, 255, 255);
-        for(int i = 0; i < segments; i++) {
-            float angle = 2.0f * M_PI * (float(i) / float(segments));
-            float radiusOfOrbit = ORBIT_RADIUS;
-            // x and y here represent a random coordinate on the orbit that goes around the arena.
-            float x = ARENA_CENTER_X + radiusOfOrbit * cosf(angle);
-            float y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
-            glVertex2f(x, y);
-        }
-    glEnd();
 }
 
 void Arena::checkWarningDistance(Ship* ship) {

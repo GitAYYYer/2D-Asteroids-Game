@@ -24,10 +24,12 @@ class TentacleMonster {
     private:
         float x, y, speed, theta, hp;
         int xRadius, yRadius, headHeight, headWidth;
-        int arms, armSegments, bodySegments;
+        int arms, bodySegments;
         bool inArena, armFluct;
         vector< tuple<float, float> > armCoords;
+        vector< tuple<float, float> > armEndPtCoords;
         float currentYFluct, endPointFluct;
+        float lastShipX, lastShipY;
     public:
         TentacleMonster();
         void drawHead();
@@ -48,6 +50,8 @@ class TentacleMonster {
         float getTheta();
         float getHp();
         bool getInArena();
+        float getLastShipX();
+        float getLastShipY();
         void setX(float value);
         void setY(float value);
         void setXRadius(int value);
@@ -58,8 +62,11 @@ class TentacleMonster {
         void setTheta(float value);
         void setHp(float value);
         void setInArena(bool value);
+        void setLastShipX(float value);
+        void setLastShipY(float value);
 
         vector< tuple<float, float> >& getArmCoords();
+        vector <tuple<float, float> >& getArmEndPtCoords();
 };
 
 float getRanFloat(float min, float max);

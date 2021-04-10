@@ -8,30 +8,38 @@ BulletManager* bulletManager;
 ParticleManager* particleManager;
 WaveManager* waveManager;
 TextManager* textManager;
-TentacleMonster* tentacleMonster;
+BossManager* bossManager;
+
+// Every random amt of seconds, shoot bullets or move
+void* handleBossFight(void* arg) {
+    float secondsSleep = 1;
+    while (true) {
+        if (bossManager->getFightingBoss()) {
+            bossManager->performAction();
+            sleep(secondsSleep);
+        }
+    }
+    return 0;
+}
 
 void* wavesThread(void* arg) {
     while (true) {
-        if (!NEW_GAME && !GAME_OVER && !FIGHTING_BOSS) {
+        if (!NEW_GAME && !GAME_OVER && !bossManager->getFightingBoss()) {
             waveManager->prepNextWave();
             sleep(1 * WAVE_COOLDOWN);
 
-            if (waveManager->getWave() == 3) {
-                FIGHTING_BOSS = true;
+            if (waveManager->getWave() % 5 == 0) {
+                bossManager->setFightingBoss(true);
             }
         }
-        // if (!NEW_GAME && !GAME_OVER && waveManager->getWave() < 1) {
-        //     waveManager->prepNextWave();
-        //     sleep(1 * WAVE_COOLDOWN);
-        // }
     }
     return 0;
 }
 
 void* manageTmArmsThread(void* arg) {
     float secondsSleep = 0.01;
-    while (tentacleMonster->getHp() > 0) {
-        tentacleMonster->changeArmFluct();
+    while (bossManager->getTM()->getHp() > 0) {
+        bossManager->getTM()->changeArmFluct();
         usleep(secondsSleep * 1000000);
     }
     return 0;
@@ -47,7 +55,7 @@ GameManager::GameManager() {
     textManager = new TextManager();
     input = new Input(ship, bulletManager, particleManager);
 
-    tentacleMonster = new TentacleMonster();
+    bossManager = new BossManager(ship);
 }
 
 void GameManager::display() {
@@ -59,8 +67,9 @@ void GameManager::display() {
     waveManager->drawWave();
     textManager->drawText();
 
-    if (FIGHTING_BOSS) {
-        tentacleMonster->draw();
+    if (bossManager->getFightingBoss()) {
+        bossManager->getTM()->draw();
+        bossManager->getBossBulletManager()->drawBullets();
     }
 }
 
@@ -74,13 +83,29 @@ void GameManager::calcMovements(float deltaTime) {
     calcPartMovements(particleManager->getShipParticles(), particleManager->getExploParticles(), deltaTime);
     handleBlackHole();
 
-    if (FIGHTING_BOSS) {
-        calcTentacleMonsterMovement(tentacleMonster, deltaTime);
+    if (bossManager->getFightingBoss()) {
+        calcTentacleMonsterMovement(bossManager->getTM(), deltaTime);
+        calcBossBulletMovement(bossManager->getBossBulletManager()->getBullets(), deltaTime);
     }
 }
 
 void GameManager::checkCollisions() {
     MATHHANDLER_H::checkCollisions(ship, blackHole, waveManager->getAsteroids(), bulletManager->getBullets(), waveManager, particleManager);
+    
+    if (bossManager->getFightingBoss()) {
+        calcBossCollision(bossManager, ship, waveManager->getAsteroids(), bulletManager->getBullets(), particleManager);
+        calcBossBulletsCollision(ship, blackHole, bossManager->getBossBulletManager()->getBullets());
+    }
+    if (bossManager->getTM()->getHp() <= 0 && bossManager->getFightingBoss()) {
+        for (int i = 0; i < 5; i++) {
+            int xOffset = (rand() % 80) - 40;
+            int yOffset = (rand() % 160) - 160;
+            particleManager->createExplosion(bossManager->getTM()->getX() + xOffset, bossManager->getTM()->getY() + yOffset);
+        }
+        SCORE += 50;
+        bossManager->setFightingBoss(false);
+        bossManager->setNewBoss();
+    }
 }
 
 void GameManager::createBullets() {
@@ -105,17 +130,22 @@ void GameManager::createThreads() {
 
     pthread_t tid2;
     pthread_create(&tid2, NULL, &manageTmArmsThread, NULL);
+
+    pthread_t tid3;
+    pthread_create(&tid3, NULL, &handleBossFight, NULL);
 }
 
 void GameManager::checkRestart() {
     if (RESTART_GAME) {
-        printf("I have just restarted.\n");
         RESTART_GAME = false;
         GAME_OVER = false;
         SCORE = 0;
         ship->reset();
+        blackHole->reset();
+        bulletManager->reset();
         waveManager->reset();
         textManager->reset();
+        bossManager->reset();
     }
 }
 

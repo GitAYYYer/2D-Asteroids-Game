@@ -77,8 +77,8 @@ void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime) {
 
 void calcBulletMovements(vector<Bullet*>& bullets, float deltaTime) {
     for (int i = 0; i < bullets.size(); i++) {
-        bullets[i]->setX(bullets[i]->getX() - (sinD(bullets[i]->getAngle()) * deltaTime * BULLET_SPEED));
-        bullets[i]->setY(bullets[i]->getY() + (cosD(bullets[i]->getAngle()) * deltaTime * BULLET_SPEED));
+        bullets[i]->setX(bullets[i]->getX() - (sinD(bullets[i]->getAngle()) * deltaTime * bullets[i]->getSpeed()));
+        bullets[i]->setY(bullets[i]->getY() + (cosD(bullets[i]->getAngle()) * deltaTime * bullets[i]->getSpeed()));
     }
 }
 
@@ -95,7 +95,7 @@ void calcPartMovements(vector<Particle*>& shipParticles, vector<Particle*>& expl
 }
 
 void checkCollisions(Ship* ship, BlackHole* blackHole, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
-    if (ship->getCollided()) {
+    if (ship->getCollided() && !GOD_MODE) {
         GAME_OVER = true;
         ship->setIsMovingForward(false);
         ship->setIsRotatingLeft(false);
@@ -160,10 +160,10 @@ void checkArenaBulletCollision(Ship* ship, vector<Bullet*>& bullets) {
 void checkAsteroidCollisions(Ship* ship, vector<Asteroid*>& asteroids, vector<Bullet*>& bullets, WaveManager* waveManager, ParticleManager* particleManager) {
     for (int astCounter = 0; astCounter < asteroids.size(); astCounter++) {
         // Create bounding circle around ship to check collision with asteroid
-        // float astShipDistance = pow(ship->getX() - asteroids[astCounter]->getX(), 2) + pow(ship->getY() - asteroids[astCounter]->getY(), 2);
-        // if (astShipDistance < pow(asteroids[astCounter]->getRadius() + (PLAYER_HEIGHT/2), 2)) {
-        //     ship->setCollided(true);
-        // }
+        float astShipDistance = pow(ship->getX() - asteroids[astCounter]->getX(), 2) + pow(ship->getY() - asteroids[astCounter]->getY(), 2);
+        if (astShipDistance < pow(asteroids[astCounter]->getRadius() + (PLAYER_HEIGHT/2), 2)) {
+            ship->setCollided(true);
+        }
 
         // Check bullet's collision with asteroid
         for (int bullCounter = 0; bullCounter < bullets.size(); bullCounter++) {
@@ -284,8 +284,8 @@ void checkBlackHolePullAndCollisions(Ship* ship, BlackHole* blackHole, vector<As
         if (bhBullDist < pow(BLACKHOLE_PULL_DISTANCE, 2)) {
             float angle = (atan2(blackHole->getY() - bullets[i]->getY(), blackHole->getX() - bullets[i]->getX()) - 90) * 180/M_PI;
             float pullPower = getPullingPower(sqrt(bhBullDist));
-            bullets[i]->setX(bullets[i]->getX() - pullPower*8 * sinD(angle));
-            bullets[i]->setY(bullets[i]->getY() + pullPower*8 * cosD(angle));
+            bullets[i]->setX(bullets[i]->getX() - pullPower * BLACKHOLE_BULLET_PULL_MULTIPLIER * sinD(angle));
+            bullets[i]->setY(bullets[i]->getY() + pullPower * BLACKHOLE_BULLET_PULL_MULTIPLIER * cosD(angle));
         }
     }
 }

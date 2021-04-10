@@ -5,20 +5,17 @@ TentacleMonster::TentacleMonster() {
     float angle = 2.0f * M_PI * (float(randomNumber) / float(200));
     float radiusOfOrbit = ORBIT_RADIUS;
 
-    // this->x = ARENA_CENTER_X + radiusOfOrbit * cosf(angle);
-    // this->y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
-    this->x = -400;
-    this->y = -400;
+    this->x = ARENA_CENTER_X + radiusOfOrbit * cosf(angle);
+    this->y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
 
     this->xRadius = 50;
     this->yRadius = 100;
     this->headHeight = this->yRadius * 1.5;
     this->headWidth = 30;
-    this->speed = 0.1;
+    this->speed = 0.2;
     this->theta = atan2(ARENA_CENTER_Y - this->y, ARENA_CENTER_X - this->x) * 180/M_PI;
     this->hp = 500;
     this->arms = 4;
-    this->armSegments = 3;
     this->bodySegments = 200;
     this->currentYFluct = 0;
     this->armFluct = true;
@@ -141,6 +138,12 @@ void TentacleMonster::drawArm(float xStart, float yStart, int armNumber) {
         glEnd();
         glPointSize(1);
     glPopMatrix();
+
+    if (armEndPtCoords.size() < 4) {
+        armEndPtCoords.push_back(std::make_tuple(xCtrl[3], yCtrl[3]));
+    } else {
+        armEndPtCoords.at(armNumber) = std::make_tuple(xCtrl[3], yCtrl[3]);
+    }
 }
 
 void TentacleMonster::drawArms() {
@@ -218,6 +221,14 @@ bool TentacleMonster::getInArena() {
     return inArena;
 }
 
+float TentacleMonster::getLastShipX() {
+    return lastShipX;
+}
+
+float TentacleMonster::getLastShipY() {
+    return lastShipY;
+}
+
 void TentacleMonster::setX(float value) {
     x = value;
 }
@@ -256,6 +267,21 @@ void TentacleMonster::setHp(float value) {
 
 void TentacleMonster::setInArena(bool value) {
     inArena = value;
+}
+
+void TentacleMonster::setLastShipX(float value) {
+    lastShipX = value;
+}
+
+void TentacleMonster::setLastShipY(float value) {
+    lastShipY = value;
+}
+
+vector< tuple<float, float> >& TentacleMonster::getArmCoords() {
+    return armCoords;
+}
+vector <tuple<float, float> >& TentacleMonster::getArmEndPtCoords() {
+    return armEndPtCoords;
 }
 
 float getRanFloat(float min, float max) {

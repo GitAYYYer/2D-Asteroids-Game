@@ -21,6 +21,7 @@ class Bullet {
         int size;
     public:
         Bullet(Ship* ship);
+        Bullet(float x, float y, float angle);
         void draw();
 
         float getX();

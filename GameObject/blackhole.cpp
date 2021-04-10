@@ -34,7 +34,12 @@ void BlackHole::draw() {
 }
 
 void BlackHole::reset() {
-
+    srand(time(NULL));
+    this->startingRadius = (rand() % (BLACKHOLE_MAX_RADIUS - BLACKHOLE_MIN_RADIUS)) + BLACKHOLE_MIN_RADIUS;
+    this->currentRadius = this->startingRadius;
+    this->x = getRandomFloat(0, ARENA_CENTER_X + ARENA_WIDTH - this->startingRadius);
+    this->y = getRandomFloat(0, ARENA_CENTER_Y + ARENA_HEIGHT - this->startingRadius);
+    this->lastPulse = 0;
 }
 
 float BlackHole::getX() {

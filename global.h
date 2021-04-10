@@ -61,6 +61,7 @@ extern const int BLACKHOLE_PULSE_RATE_MS;
 extern const int BLACKHOLE_MIN_RADIUS;
 extern const int BLACKHOLE_MAX_RADIUS;
 extern const float BLACKHOLE_PULL_DISTANCE;
+extern const int BLACKHOLE_BULLET_PULL_MULTIPLIER;
 extern const float BLACKHOLE_MIN_PULL_POWER;
 extern const float BLACKHOLE_MAX_PULL_POWER;
 extern const float BLACKHOLE_PULL_INTERVALS;
@@ -87,5 +88,5 @@ extern bool NEW_GAME;
 extern bool GAME_OVER;
 extern bool RESTART_GAME;
 extern int SCORE;
-extern bool FIGHTING_BOSS;
+extern bool GOD_MODE;
 #endif
