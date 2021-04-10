@@ -55,7 +55,7 @@ void init() {
     glOrtho(ORTHO_LEFT, ORTHO_RIGHT, ORTHO_DOWN, ORTHO_UP, 0.0, 1.0);
     glMatrixMode(GL_MODELVIEW);
 
-    gameManager.manageWaves();
+    gameManager.createThreads();
 }
 
 int main(int argc, char **argv) {

@@ -13,24 +13,15 @@ Asteroid::Asteroid(Ship* ship) {
     float x = ARENA_CENTER_X + radiusOfOrbit * cosf(angle);
     float y = ARENA_CENTER_Y + radiusOfOrbit * sinf(angle);
 
-    this->id = rand() % 1000; // DEBUGGING PURPOSES
     this->x = x;
     this->y = y;
     this->spawnX = x;
     this->spawnY = y;
     this->targetX = ship->getX();
     this->targetY = ship->getY();
-    // this->x = 600;
-    // this->y = 500;
-    // this->spawnX = this->x;
-    // this->spawnY = this->y;
-    // this->targetX = ship->getX();
-    // this->targetY = ship->getY();
     this->theta = atan2(this->targetY - this->spawnY, this->targetX - this->spawnX) * 180/M_PI;
     this->speed = asteroidRandSpeed;
     this->radius = (rand() % (ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS)) + ASTEROID_MIN_RADIUS;
-    // this->speed = 0.3;
-    // this->radius = 40;
     this->hp = (float)this->radius * 2.1;
     this->currentRotation = 0;
     this->rotateSpeed = getRandFloat(ASTEROID_MIN_ROT_SPEED, ASTEROID_MAX_ROT_SPEED);
@@ -41,8 +32,6 @@ Asteroid::Asteroid(Ship* ship) {
     this->asteroidBounce = false;
     this->fromSplit = false;
 
-    printf("Asteroid #%d, Speed: %f, Radius: %d, (x,y): (%f,%f)\n", id, speed, radius, this->x, this->y);
-
     // Get the variations in the asteroid
     int varAmt = rand() % ASTEROID_MAX_VARIATIONS;
     for (int i = 0; i < varAmt; i++) {
@@ -50,8 +39,7 @@ Asteroid::Asteroid(Ship* ship) {
         int maxStart = floor(ASTEROID_SEGMENTS/varAmt) * (i + 1);
         int startSegment = (rand() % (maxStart - minStart)) + minStart;
         int endSegment = startSegment + (rand() % 10) + 5;
-        // int xVariation = getRandFloat(-this->radius/4, this->radius/4);
-        // int yVariation = getRandFloat(-this->radius/4, this->radius/4);
+
         int xVariation = getRandFloat(0, this->radius/4);
         int yVariation = getRandFloat(0, this->radius/4);
 
@@ -65,15 +53,7 @@ Asteroid::~Asteroid() {
 }
 
 void Asteroid::draw() {
-    glPushMatrix();
-        // glRasterPos2f(this->x - 20, this->y - 4);
-        // char buffer[256];
-        // sprintf(buffer, "%d", this->id);
-        // int len = strlen(buffer);
-        // for (int i = 0; i < len; i++) {
-        //     glutBitmapCharacter(GLUT_BITMAP_8_BY_13, buffer[i]);
-        // }
-        
+    glPushMatrix();        
         glTranslatef(this->x, this->y, 0);
         glRotatef(this->currentRotation, 0, 0, 1);
         glTranslatef(-this->x, -this->y, 0);

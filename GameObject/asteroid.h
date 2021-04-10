@@ -39,7 +39,6 @@ class Asteroid {
         vector<AsteroidVariation> variations;
 
     public:
-        int id;
         Asteroid(Ship* ship);
         ~Asteroid();
         void draw();

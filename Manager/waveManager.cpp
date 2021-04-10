@@ -38,8 +38,6 @@ void WaveManager::splitAsteroid(int counter, float sinD(float), float cosD(float
 
     Asteroid* leftAsteroid = new Asteroid(ship);
     Asteroid* rightAsteroid = new Asteroid(ship);
-        // float xTranslation = asteroids[i]->getSpeed() * deltaTime * cosD(theta);
-        // float yTranslation = asteroids[i]->getSpeed() * deltaTime * sinD(theta);
 
     int astOffset = 500;
     float leftAstX = deadX + deadSpeed * astOffset * cosD(deadTheta - 90);

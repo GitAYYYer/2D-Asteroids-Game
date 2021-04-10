@@ -8,17 +8,31 @@ BulletManager* bulletManager;
 ParticleManager* particleManager;
 WaveManager* waveManager;
 TextManager* textManager;
+TentacleMonster* tentacleMonster;
 
 void* wavesThread(void* arg) {
     while (true) {
-        if (!NEW_GAME && !GAME_OVER) {
+        if (!NEW_GAME && !GAME_OVER && !FIGHTING_BOSS) {
             waveManager->prepNextWave();
             sleep(1 * WAVE_COOLDOWN);
+
+            if (waveManager->getWave() == 3) {
+                FIGHTING_BOSS = true;
+            }
         }
         // if (!NEW_GAME && !GAME_OVER && waveManager->getWave() < 1) {
         //     waveManager->prepNextWave();
         //     sleep(1 * WAVE_COOLDOWN);
         // }
+    }
+    return 0;
+}
+
+void* manageTmArmsThread(void* arg) {
+    float secondsSleep = 0.01;
+    while (tentacleMonster->getHp() > 0) {
+        tentacleMonster->changeArmFluct();
+        usleep(secondsSleep * 1000000);
     }
     return 0;
 }
@@ -32,6 +46,8 @@ GameManager::GameManager() {
     waveManager = new WaveManager(ship);
     textManager = new TextManager();
     input = new Input(ship, bulletManager, particleManager);
+
+    tentacleMonster = new TentacleMonster();
 }
 
 void GameManager::display() {
@@ -42,14 +58,25 @@ void GameManager::display() {
     particleManager->drawParticles();
     waveManager->drawWave();
     textManager->drawText();
+
+    if (FIGHTING_BOSS) {
+        tentacleMonster->draw();
+    }
 }
 
 void GameManager::calcMovements(float deltaTime) {
+    if (NEW_GAME) {
+        return;
+    }
     calcShipMovement(ship, deltaTime);
     calcAstMovements(waveManager->getAsteroids(), deltaTime);
     calcBulletMovements(bulletManager->getBullets(), deltaTime);
     calcPartMovements(particleManager->getShipParticles(), particleManager->getExploParticles(), deltaTime);
     handleBlackHole();
+
+    if (FIGHTING_BOSS) {
+        calcTentacleMonsterMovement(tentacleMonster, deltaTime);
+    }
 }
 
 void GameManager::checkCollisions() {
@@ -72,9 +99,12 @@ void GameManager::updateText() {
     textManager->updateText();
 }
 
-void GameManager::manageWaves() {
+void GameManager::createThreads() {
     pthread_t tid;
     pthread_create(&tid, NULL, &wavesThread, NULL);
+
+    pthread_t tid2;
+    pthread_create(&tid2, NULL, &manageTmArmsThread, NULL);
 }
 
 void GameManager::checkRestart() {

@@ -1,13 +1,13 @@
 #include "global.h"
-extern const int ORTHO_LEFT = -960;
-extern const int ORTHO_RIGHT = 960;
-extern const int ORTHO_DOWN = -540;
-extern const int ORTHO_UP = 540;
+// extern const int ORTHO_LEFT = -960;
+// extern const int ORTHO_RIGHT = 960;
+// extern const int ORTHO_DOWN = -540;
+// extern const int ORTHO_UP = 540;
 
-// extern const int ORTHO_LEFT = -500;
-// extern const int ORTHO_RIGHT = 500;
-// extern const int ORTHO_DOWN = -400;
-// extern const int ORTHO_UP = 400;
+extern const int ORTHO_LEFT = -1500;
+extern const int ORTHO_RIGHT = 1500;
+extern const int ORTHO_DOWN = -800;
+extern const int ORTHO_UP = 800;
 
 extern const float ARENA_R = 0;
 extern const float ARENA_G = 255;
@@ -17,7 +17,8 @@ extern const float ARENA_CENTER_Y = (ORTHO_UP + ORTHO_DOWN) / 2;
 extern const float ARENA_WIDTH = sqrt(pow(ORTHO_RIGHT - ORTHO_LEFT, 2)) * 0.4;
 extern const float ARENA_HEIGHT = sqrt(pow(ORTHO_UP - ORTHO_DOWN, 2)) * 0.4;
 extern const float WARNING_DISTANCE = 100;
-extern const float ORBIT_RADIUS = 1200;
+extern const float ORBIT_RADIUS = ARENA_WIDTH * 2;
+// extern const float ORBIT_RADIUS = 1200;
 
 extern const float SHIP_ACCELERATE_RATE = 0.009;
 extern const float SHIP_DECELERATE_RATE = 0.02;
@@ -85,3 +86,4 @@ bool NEW_GAME = true;
 bool GAME_OVER = false;
 bool RESTART_GAME = false;
 int SCORE = 0;
+bool FIGHTING_BOSS = true;

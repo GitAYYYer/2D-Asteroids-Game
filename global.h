@@ -87,4 +87,5 @@ extern bool NEW_GAME;
 extern bool GAME_OVER;
 extern bool RESTART_GAME;
 extern int SCORE;
+extern bool FIGHTING_BOSS;
 #endif

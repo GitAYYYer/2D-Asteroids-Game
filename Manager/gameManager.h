@@ -3,9 +3,11 @@
 #include "../GameObject/arena.h"
 #include "../GameObject/ship.h"
 #include "../GameObject/blackhole.h"
+#include "../GameObject/bosses/tentacleMonster.h"
 #include "../global.h"
 #include "../input.h"
-#include "../mathHandler.h"
+#include "../Math/mathHandler.h"
+#include "../Math/bossMath.h"
 #include "bulletManager.h"
 #include "particleManager.h"
 #include "waveManager.h"
@@ -31,7 +33,7 @@ using std::vector;
 class GameManager {
     private:
     public:
-        GameManager(); // I want to use just this manager, which creates everything else.
+        GameManager();
         void display();
         void calcMovements(float deltaTime);
         void checkCollisions();
@@ -39,7 +41,7 @@ class GameManager {
         void createParticles();
         void handleBlackHole();
         void updateText();
-        void manageWaves();
+        void createThreads();
         void checkRestart();
 
         Ship* getShip();
