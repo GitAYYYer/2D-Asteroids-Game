@@ -6,11 +6,12 @@
 
 class TextManager {
     private:
+        int previousResetTime;
     public:
         TextManager();
         void drawText();
         void updateText();
-        void resetText();
+        void reset();
 };
 
 #endif

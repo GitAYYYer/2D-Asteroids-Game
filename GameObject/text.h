@@ -25,10 +25,12 @@ class Text {
         char buffer[256];
         float x, y;
         int width, length;
+        void* font;
     public:
-        Text(int number, float x, float y);
-        Text(string text, float x, float y);
+        Text(int number, float x, float y, void* font);
+        Text(string text, float x, float y, void* font);
         int calcWidth(char buffer[]);
+        int calcHeight();
         void draw();
         void updateTimeAlive(int glutTime);
         void updateScore(int newScore);

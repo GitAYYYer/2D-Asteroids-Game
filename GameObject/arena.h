@@ -2,6 +2,7 @@
 #define ARENA_H
 #include "../global.h"
 #include "ship.h"
+#include "stdio.h"
 #if _WIN32
 #include <windows.h>
 #endif
@@ -17,17 +18,15 @@
 
 class Arena {
     private:
-        float xCoord;
-        float yCoord;
+        float xCenter;
+        float yCenter;
         // Radius of the circle from the arena that spawns asteroids
         float orbitRadius;
     public:
         Arena();
-        void drawArena(Ship* ship);
+        void draw(Ship* ship);
         void checkWarningDistance(Ship* ship);
         float getOrbitRadius();
 };
-
-void drawOrbit();
 
 #endif

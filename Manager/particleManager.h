@@ -6,15 +6,18 @@
 
 class ParticleManager {
     private:
-        std::vector<Particle*> particles;
+        std::vector<Particle*> shipParticles;
+        std::vector<Particle*> exploParticles;
         Ship* ship;
         bool shipIsMoving;
     public:
         ParticleManager(Ship* ship);
-        void createParticles();
+        void createShipParticles();
         void drawParticles();
-        std::vector<Particle*>& getParticles();
-
+        void createExplosion(int x, int y);
+        
+        std::vector<Particle*>& getShipParticles();
+        std::vector<Particle*>& getExploParticles();
         bool getShipisMoving();
         void setShipIsMoving(bool value);
 };

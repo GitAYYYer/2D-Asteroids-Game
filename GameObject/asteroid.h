@@ -18,23 +18,21 @@
 #endif
 
 using std::vector;
-#define COUNTER_CLOCKWISE 0
-#define CLOCKWISE 1
 
 class Asteroid {
     private:
-        // Center coordinates for asteroid, speed, and its initial X,Y coords
-        float x, y, speed, spawnX, spawnY, hp;
+        float x, y, speed, spawnX, spawnY, theta, hp;
         float r, g, b;
         int radius, rotateDirection;
-        // Target coordinate (i.e. ship's X and Y) asteroid is launching to
         float targetX, targetY;
         float currentRotation, rotateSpeed;
+        bool inArena;
+        bool horizontalBounce, verticalBounce, asteroidBounce;
+        bool fromSplit;
         // Holds info of where to start the variations, for how many segments, and how much to add to the X and Y.
         vector<AsteroidVariation> variations;
 
     public:
-        int id;
         Asteroid(Ship* ship);
         ~Asteroid();
         void draw();
@@ -44,22 +42,34 @@ class Asteroid {
         float getY();
         float getSpawnX();
         float getSpawnY();
+        float getTheta();
         float getHP();
         float getSpeed();
         int getRadius();
         float getCurrentRotation();
         int getRotateDirection();
         float getRotateSpeed();
+        bool getInArena();
+        bool getHorizontalBounce();
+        bool getVerticalBounce();
+        bool getAsteroidBounce();
+        bool getFromSplit();
         void setX(float value);
         void setY(float value);
         void setHP(float value);
         void setSpawnX(float value);
         void setSpawnY(float value);
+        void setTheta(float value);
         void setSpeed(float value);
         void setRadius(int value);
         void setCurrentRotation(float value);
         void setRotateDirection(int value);
         void setRotateSpeed(float value);
+        void setInArena(bool value);
+        void setHorizontalBounce(bool value);
+        void setVerticalBounce(bool value);
+        void setAsteroidBounce(bool value);
+        void setFromSplit(bool value);
 
         float getTargetX();
         float getTargetY();

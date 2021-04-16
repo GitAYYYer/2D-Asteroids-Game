@@ -1,15 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include "GameObject/arena.h"
-#include "GameObject/ship.h"
-#include "Manager/bulletManager.h"
-#include "Manager/particleManager.h"
-#include "Manager/waveManager.h"
-#include "Manager/textManager.h"
 #include "Manager/gameManager.h"
-#include "global.h"
-#include "input.h"
-#include "mathHandler.h"
 #if _WIN32
 #include <windows.h>
 #endif
@@ -25,37 +14,14 @@
 #include <unistd.h>
 #endif
 
-// Delta Related
 float previousTime = 0;
-
-Arena arena;
-Ship ship;
-BulletManager bulletManager(&ship);
-ParticleManager particleManager(&ship);
-WaveManager waveMananger(&ship);
-TextManager textManager;
-Input input(&ship, &particleManager, &bulletManager);
-GameManager gameManager(&ship, &waveMananger, &textManager);
-
-void* threadProc(void* arg) {
-    while (!GAME_OVER) {
-        printf("Preparing wave %d\n", waveMananger.wave + 1);
-        waveMananger.prepNextWave();
-        sleep(1 * WAVE_COOLDOWN);
-    }
-    return 0;
-}
+GameManager gameManager;
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
 
-    arena.drawArena(&ship);
-    ship.drawShip(&ship);
-    bulletManager.drawBullets();
-    particleManager.drawParticles();
-    waveMananger.drawWave();
-    textManager.drawText();
+    gameManager.display();
 
     int err;
     while ((err = glGetError()) != GL_NO_ERROR)
@@ -67,19 +33,17 @@ void idle() {
     float currentTime = glutGet(GLUT_ELAPSED_TIME);
     float deltaTime = currentTime - previousTime;
     // Skip the first instance of idle() where previousTime doesn't actually have a value yet.
-    // Otherwise, deltaTime will be equal to just currentTime and calc methods will have an incorrect timeDelta.
+    // Otherwise, deltaTime will be equal to just currentTime and calc methods will have an incorrect deltaTime.
     if (previousTime == 0) {
         previousTime = currentTime;
         return;
     }
-    calcShipMovement(&ship, deltaTime);
-    calcAstMovements(waveMananger.getAsteroids(), deltaTime);
-    calcBulletMovements(bulletManager.getBullets(), deltaTime);
-    calcPartMovements(particleManager.getParticles(), deltaTime);
-    checkCollisions(&ship, waveMananger.getAsteroids(), bulletManager.getBullets());
-    bulletManager.createBullets();
-    particleManager.createParticles();
-    textManager.updateText();
+    gameManager.calcMovements(deltaTime);
+    gameManager.checkCollisions();
+    gameManager.createBullets();
+    gameManager.createParticles();
+    gameManager.updateText();
+    gameManager.checkRestart();
 
     previousTime = currentTime;
     glutPostRedisplay();
@@ -91,9 +55,7 @@ void init() {
     glOrtho(ORTHO_LEFT, ORTHO_RIGHT, ORTHO_DOWN, ORTHO_UP, 0.0, 1.0);
     glMatrixMode(GL_MODELVIEW);
 
-    // Create thread for managing waves
-    pthread_t tid;
-    pthread_create(&tid, NULL, &threadProc, NULL);
+    gameManager.createThreads();
 }
 
 int main(int argc, char **argv) {
