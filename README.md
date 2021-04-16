@@ -18,4 +18,4 @@ The rest of the variables in global.cpp are meant to be related to the gameplay 
 
 ## Big Boss
 Every 5th wave there spawns a big boss named Inkler :) Inkler spawns and moves into the arena, where he will have a 1/4 chance (this can be changed, but in the bossManager.cpp) to do something. If he does something, it will then be a 50/50 whether he shoots bullets at you or moves towards another place within the Arena.
-Killing Inkler rewards you with 50 points.
+Killing Inkler rewards you with 50 points, and extra attack speed.

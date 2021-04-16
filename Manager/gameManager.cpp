@@ -103,6 +103,9 @@ void GameManager::checkCollisions() {
             particleManager->createExplosion(bossManager->getTM()->getX() + xOffset, bossManager->getTM()->getY() + yOffset);
         }
         SCORE += 50;
+        if (SHIP_FIRING_RATE - 50 > 0) {
+            SHIP_FIRING_RATE -= 50;
+        }
         bossManager->setFightingBoss(false);
         bossManager->setNewBoss();
     }

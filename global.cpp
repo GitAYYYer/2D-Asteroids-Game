@@ -19,7 +19,7 @@ extern const float SHIP_DECELERATE_RATE = 0.02;
 extern const float SHIP_MAX_MOVEMENT_SPEED = 0.3;
 extern const float SHIP_ROTATION_SPEED = 0.3;
 
-extern const float SHIP_FIRING_RATE = 400;
+float SHIP_FIRING_RATE = 400;
 extern const float BULLET_SPEED = 0.5;
 extern const int BULLET_SIZE = 6;
 extern const int BULLET_DMG = 50;
