@@ -64,13 +64,7 @@ void calcAstMovements(vector<Asteroid*>& asteroids, float deltaTime) {
 
         asteroids[i]->setX(asteroids[i]->getX() + xTranslation);
         asteroids[i]->setY(asteroids[i]->getY() + yTranslation);
-        
-        if (asteroids[i]->getRotateDirection() == COUNTER_CLOCKWISE) {
-            asteroids[i]->setCurrentRotation(asteroids[i]->getCurrentRotation() + deltaTime * asteroids[i]->getRotateSpeed());
-        } else {
-            asteroids[i]->setCurrentRotation(asteroids[i]->getCurrentRotation() - deltaTime * asteroids[i]->getRotateSpeed());
-        }
-        
+        asteroids[i]->setCurrentRotation(asteroids[i]->getCurrentRotation() + (asteroids[i]->getRotateDirection() * deltaTime * asteroids[i]->getRotateSpeed()));
     }
     checkAstDeletion(asteroids);
 }

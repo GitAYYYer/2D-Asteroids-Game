@@ -77,6 +77,10 @@ extern const float PLAYER_FILL_R = 0;
 extern const float PLAYER_FILL_G = 0;
 extern const float PLAYER_FILL_B = 255;
 
+extern const char FORWARD = 'w';
+extern const char ROTATE_LEFT = 'a';
+extern const char ROTATE_RIGHT = 'd';
+
 bool NEW_GAME = true;
 bool GAME_OVER = false;
 bool RESTART_GAME = false;

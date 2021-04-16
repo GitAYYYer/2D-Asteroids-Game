@@ -18,12 +18,6 @@
 #endif
 
 using std::vector;
-#define COUNTER_CLOCKWISE 0
-#define CLOCKWISE 1
-#define TOP_WALL 1
-#define BOTTOM_WALL -1
-#define LEFT_WALL -1
-#define RIGHT_WALL 1
 
 class Asteroid {
     private:

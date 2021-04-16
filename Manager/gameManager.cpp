@@ -28,7 +28,7 @@ void* wavesThread(void* arg) {
             waveManager->prepNextWave();
             sleep(1 * WAVE_COOLDOWN);
 
-            if (waveManager->getWave() % 5 == 0) {
+            if (waveManager->getWave() % 5 == 0 && waveManager->getWave() != 0) {
                 bossManager->setFightingBoss(true);
             }
         }

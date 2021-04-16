@@ -10,7 +10,8 @@ Input::Input(Ship* shipArg, BulletManager* bmArg, ParticleManager* pmArg) {
 }
 
 void keyboardDown(unsigned char key, int x, int y) {
-    if (key == 'q') {
+    unsigned char lowerKey = tolower(key);
+    if (lowerKey == 'q') {
         exit(EXIT_SUCCESS);
     }
     if (NEW_GAME) {
@@ -19,13 +20,13 @@ void keyboardDown(unsigned char key, int x, int y) {
     if (GAME_OVER) {
         RESTART_GAME = true;
     }
-    if (key == ROTATE_LEFT) {
+    if (lowerKey == ROTATE_LEFT) {
         inputShip->setIsRotatingLeft(true);
         inputShip->setIsRotatingRight(false);
-    } else if (key == ROTATE_RIGHT) {
+    } else if (lowerKey == ROTATE_RIGHT) {
         inputShip->setIsRotatingLeft(false);
         inputShip->setIsRotatingRight(true);
-    } else if (key == FORWARD) {
+    } else if (lowerKey == FORWARD) {
         inputShip->setIsMovingForward(true);
         inputParticleManager->setShipIsMoving(true);
     }
@@ -35,11 +36,12 @@ void keyboardRelease(unsigned char key, int x, int y) {
     if (GAME_OVER) {
         return;
     }
-    if (key == ROTATE_LEFT) {
+    unsigned char lowerKey = tolower(key);
+    if (lowerKey == ROTATE_LEFT) {
         inputShip->setIsRotatingLeft(false);
-    } else if (key == ROTATE_RIGHT) {
+    } else if (lowerKey == ROTATE_RIGHT) {
         inputShip->setIsRotatingRight(false);
-    } else if (key == FORWARD) {
+    } else if (lowerKey == FORWARD) {
         inputShip->setIsMovingForward(false);
         inputParticleManager->setShipIsMoving(false);
     }

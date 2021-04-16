@@ -84,6 +84,10 @@ extern const float PLAYER_FILL_R;
 extern const float PLAYER_FILL_G;
 extern const float PLAYER_FILL_B;
 
+extern const char FORWARD;
+extern const char ROTATE_LEFT;
+extern const char ROTATE_RIGHT;
+
 extern bool NEW_GAME;
 extern bool GAME_OVER;
 extern bool RESTART_GAME;

@@ -1,6 +1,7 @@
 #include "asteroid.h"
 
 Asteroid::Asteroid(Ship* ship) {
+    static int rotValues[] = {-1, 1};
     int segments = 200;
 
     // Calculate random float for asteroid speed
@@ -25,7 +26,7 @@ Asteroid::Asteroid(Ship* ship) {
     this->hp = (float)this->radius * 2.1;
     this->currentRotation = 0;
     this->rotateSpeed = getRandFloat(ASTEROID_MIN_ROT_SPEED, ASTEROID_MAX_ROT_SPEED);
-    this->rotateDirection = rand() % 2;
+    this->rotateDirection = rotValues[rand() % (sizeof rotValues / sizeof * rotValues)];
     this->inArena = false;
     this->horizontalBounce = false;
     this->verticalBounce = false;
