@@ -22,7 +22,6 @@ using std::vector;
 class Asteroid {
     private:
         float x, y, speed, spawnX, spawnY, theta, hp;
-        float r, g, b;
         int radius, rotateDirection;
         float targetX, targetY;
         float currentRotation, rotateSpeed;
@@ -75,7 +74,6 @@ class Asteroid {
         float getTargetY();
         void setTargetX(float value);
         void setTargetY(float value);
-        void setRGB(float r, float g, float b);
 };
 
 float getRandFloat(float min, float max);

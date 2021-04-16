@@ -14,7 +14,7 @@ Bullet::Bullet(Ship* ship) {
 Bullet::Bullet(float x, float y, float angle) {
     this->x = x;
     this->y = y;
-    this->speed = BULLET_SPEED * 0.75;
+    this->speed = BULLET_SPEED * 0.5;
     this->angle = angle;
     this->size = BULLET_SIZE;
     this->r = 255;

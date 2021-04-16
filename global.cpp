@@ -33,11 +33,11 @@ extern const int PARTICLE_AMT = 3;
 extern const int PARTICLE_MIN_ANGLE_OFFSET = -30;
 extern const int PARTICLE_MAX_ANGLE_OFFSET = 30;
 
-extern const int EXPLO_PARTICLE_START_SIZE = 5;
+extern const int EXPLO_PARTICLE_START_SIZE = 7;
 extern const int EXPLO_PARTICLE_AMT = 50;
-extern const int EXPLO_PARTICLE_DECAY_MS = 100;
-extern const float EXPLO_PARTICLE_MIN_SPEED = 0.2;
-extern const float EXPLO_PARTICLE_MAX_SPEED = 0.6;
+extern const int EXPLO_PARTICLE_DECAY_MS = 50;
+extern const float EXPLO_PARTICLE_MIN_SPEED = 0.4;
+extern const float EXPLO_PARTICLE_MAX_SPEED = 0.8;
 
 extern const int ASTEROID_SEGMENTS = 50;
 extern const int ASTEROID_MAX_VARIATIONS = 10;
@@ -49,8 +49,8 @@ extern const float ASTEROID_MIN_ROT_SPEED = 0.1;
 extern const float ASTEROID_MAX_ROT_SPEED = 0.5;
 extern const float WAVE_COOLDOWN = 10.0;
 
-extern const int BLACKHOLE_PULSE_AMT = 5;
-extern const int BLACKHOLE_PULSE_RATE_MS = 500;
+extern const int BLACKHOLE_PULSE_AMT = 1;
+extern const int BLACKHOLE_PULSE_RATE_MS = 10;
 extern const int BLACKHOLE_MIN_RADIUS = 20;
 extern const int BLACKHOLE_MAX_RADIUS = 40;
 extern const float BLACKHOLE_PULL_DISTANCE = 300;

@@ -6,10 +6,10 @@ Text* newGame;
 Text* gameOver;
 TextManager::TextManager() {
     previousResetTime = 0;
-    timeAlive = new Text(0, 0, 0, GLUT_BITMAP_TIMES_ROMAN_10);
-    score = new Text(0, 0, 0, GLUT_BITMAP_TIMES_ROMAN_10);
-    newGame = new Text("Press any key to start...", 0, 0, GLUT_BITMAP_TIMES_ROMAN_10);
-    gameOver = new Text("GAME OVER! Press any key to play again...", 0, 0, GLUT_BITMAP_TIMES_ROMAN_10);
+    timeAlive = new Text(0, 0, 0, GLUT_BITMAP_9_BY_15);
+    score = new Text(0, 0, 0, GLUT_BITMAP_9_BY_15);
+    newGame = new Text("Press any key to start...", 0, 0, GLUT_BITMAP_9_BY_15);
+    gameOver = new Text("GAME OVER! Press any key to play again...", 0, 0, GLUT_BITMAP_9_BY_15);
 
     timeAlive->updateTimeAlive(0);
     score->updateScore(0);
