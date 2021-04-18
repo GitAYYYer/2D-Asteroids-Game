@@ -1,8 +1,11 @@
 ## Interactive 3D Graphics and Animation - Asteroids
-To run the project, make sure you're in the root directory (same level as main.cpp) and run the following: 
-- clang++ *.cpp GameObject/*.cpp GameObject/bosses/*.cpp Math/*.cpp Manager/*.cpp -Wno-deprecated-declarations -framework GLUT -framework OpenGL -framework Carbon -std=c++14  -o main
+To run the project, make sure you're in the root directory (same level as main.cpp) and run the following:
+- ./build.sh
 
-Then run './main' to start the game.
+This will take a few seconds to compile but after a bit you should be able to run './main' to start the game.
+
+## Implementation
+I have implemented up to level 4 and both the bonuses (correctly hopefully), as well as an extra thing just because I had 1 day I could be bothered learning about bezier curves :)
 
 ## Configurables
 To configure many aspects of the game (e.g. time between waves, orthogonal coordinates, etc), you can find them declared in global.h, and then have their values initialised in global.cpp. Configurables are:
