@@ -12,8 +12,6 @@ BulletManager::BulletManager(TentacleMonster* tm) {
 
 void BulletManager::createBullets() {
     if (ship == nullptr) {
-        Bullet* newBullet = new Bullet(0, 0, 0);
-        bullets.push_back(newBullet);
         return;
     }
     if (ship->getCollided() || this->lastBulletTimer + SHIP_FIRING_RATE > glutGet(GLUT_ELAPSED_TIME)) {
@@ -22,13 +20,30 @@ void BulletManager::createBullets() {
     // Only if ship is shooting and last bullet was at least X ms ago, create a bullet
     if (shipIsShooting) {
         this->lastBulletTimer = glutGet(GLUT_ELAPSED_TIME);
-        Bullet* newBullet = new Bullet(ship);
+        // Bullet* newBullet = new Bullet(ship);
+        Bullet* newBullet = new Bullet(ship->getX() - (sinf(ship->getCurrentRotation() * M_PI/180) * 40), 
+                                        ship->getY() + (cosf(ship->getCurrentRotation() * M_PI/180) * 40),
+                                        BULLET_SPEED,
+                                        ship->getCurrentRotation(),
+                                        BULLET_SIZE,
+                                        BULLET_R,
+                                        BULLET_G,
+                                        BULLET_B);
+        // Bullet* newBullet2 = new Bullet(ship->getX() - (sinf(ship->getCurrentRotation() * M_PI/180) * 40), 
+        //                                 ship->getY() + (cosf(ship->getCurrentRotation() * M_PI/180) * 40),
+        //                                 BULLET_SPEED,
+        //                                 ship->getCurrentRotation() - 10,
+        //                                 BULLET_SIZE,
+        //                                 BULLET_R,
+        //                                 BULLET_G,
+        //                                 BULLET_B);
         bullets.push_back(newBullet);
+        // bullets.push_back(newBullet2);
     }
 }
 
-void BulletManager::createBossBullets(float x, float y, float angle) {
-    Bullet* newBullet = new Bullet(x, y, angle);
+void BulletManager::createBossBullets(float x, float y, float speed, float angle, int size, float r, float g, float b) {
+    Bullet* newBullet = new Bullet(x, y, speed, angle, size, r, g, b);
     bullets.push_back(newBullet);
 }
 

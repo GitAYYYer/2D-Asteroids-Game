@@ -18,7 +18,7 @@ void BossManager::performAction() {
                 float armX = get<0>(tm->getArmEndPtCoords()[i]);
                 float armY = get<1>(tm->getArmEndPtCoords()[i]);
                 float angle = atan2(armY - ship->getY(), armX - ship->getX()) * 180/M_PI;
-                bossBullets->createBossBullets(armX, armY, angle + 90);   
+                bossBullets->createBossBullets(armX, armY, BULLET_SPEED*0.5, angle + 90, BULLET_SIZE, 255, 0, 0);   
             }
         } else {
             int xWidth = ARENA_WIDTH/2;

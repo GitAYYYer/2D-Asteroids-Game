@@ -14,15 +14,15 @@ extern const float ARENA_HEIGHT = sqrt(pow(ORTHO_UP - ORTHO_DOWN, 2)) * 0.4;
 extern const float WARNING_DISTANCE = 100;
 extern const float ORBIT_RADIUS = ARENA_WIDTH * 2;
 
-extern const float SHIP_ACCELERATE_RATE = 0.009;
+extern const float SHIP_ACCELERATE_RATE = 0.01;
 extern const float SHIP_DECELERATE_RATE = 0.02;
-extern const float SHIP_MAX_MOVEMENT_SPEED = 0.3;
+extern const float SHIP_MAX_MOVEMENT_SPEED = 0.4;
 extern const float SHIP_ROTATION_SPEED = 0.3;
 
 float SHIP_FIRING_RATE = 400;
 extern const float BULLET_SPEED = 0.5;
 extern const int BULLET_SIZE = 6;
-extern const int BULLET_DMG = 50;
+extern const int BULLET_DMG = 60;
 extern const float BULLET_R = 0;
 extern const float BULLET_G = 0;
 extern const float BULLET_B = 255;

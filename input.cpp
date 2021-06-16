@@ -11,7 +11,7 @@ Input::Input(Ship* shipArg, BulletManager* bmArg, ParticleManager* pmArg) {
 
 void keyboardDown(unsigned char key, int x, int y) {
     unsigned char lowerKey = tolower(key);
-    if (lowerKey == 'q') {
+    if (lowerKey == KEY_ESC) {
         exit(EXIT_SUCCESS);
     }
     if (NEW_GAME) {
@@ -29,6 +29,8 @@ void keyboardDown(unsigned char key, int x, int y) {
     } else if (lowerKey == FORWARD) {
         inputShip->setIsMovingForward(true);
         inputParticleManager->setShipIsMoving(true);
+    } else if (lowerKey == ' ') {
+        inputBulletManager->setShipIsShooting(true);
     }
 }
 
@@ -44,6 +46,8 @@ void keyboardRelease(unsigned char key, int x, int y) {
     } else if (lowerKey == FORWARD) {
         inputShip->setIsMovingForward(false);
         inputParticleManager->setShipIsMoving(false);
+    } else if (lowerKey == ' ') {
+        inputBulletManager->setShipIsShooting(false);
     }
 }
 

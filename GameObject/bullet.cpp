@@ -6,20 +6,21 @@ Bullet::Bullet(Ship* ship) {
     this->speed = BULLET_SPEED;
     this->angle = ship->getCurrentRotation();
     this->size = BULLET_SIZE;
+    
     this->r = BULLET_R;
     this->g = BULLET_G;
     this->b = BULLET_B;
 }
 
-Bullet::Bullet(float x, float y, float angle) {
+Bullet::Bullet(float x, float y, float speed, float angle, int size, float r, float g, float b) {
     this->x = x;
     this->y = y;
-    this->speed = BULLET_SPEED * 0.5;
+    this->speed = speed;
     this->angle = angle;
-    this->size = BULLET_SIZE;
-    this->r = 255;
-    this->g = 0;
-    this->b = 0;
+    this->size = size;
+    this->r = r;
+    this->g = g;
+    this->b = b;
 }
 
 void Bullet::draw() {

@@ -16,7 +16,7 @@ class BulletManager {
         BulletManager(Ship* ship);
         BulletManager(TentacleMonster* tm);
         void createBullets();
-        void createBossBullets(float x, float y, float angle);
+        void createBossBullets(float x, float y, float speed, float angle, int size, float r, float g, float b);
         void drawBullets();
         void reset();
 

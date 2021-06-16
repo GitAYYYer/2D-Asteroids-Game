@@ -5,6 +5,7 @@
 #include "Manager/particleManager.h"
 #include "global.h"
 #include <ctype.h>
+#define KEY_ESC 27
 
 class Input {
     public:
